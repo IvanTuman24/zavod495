@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Creative Studio</title>
+    <style>
+        /* Общие стили в духе минимализма */
+        body {
+            margin: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Helvetica', Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Шапка сайта */
+        header {
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo { font-weight: bold; font-size: 24px; text-transform: uppercase; letter-spacing: 2px; }
+        
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 14px;
+            text-transform: uppercase;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+        nav a:hover { opacity: 1; }
+
+        /* Сетка проектов */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            background: #1a1a1a;
+            cursor: pointer;
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* Эффект при наведении */
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-info {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .project-card:hover .project-info {
+            opacity: 1;
+        }
+
+        .project-title { font-size: 24px; margin: 0; text-transform: uppercase; }
+        .project-category { font-size: 12px; opacity: 0.7; margin-top: 5px; }
+
+        /* Футер */
+        footer { padding: 100px 40px; text-align: center; border-top: 1px solid #333; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">YOUR NAME</div>
+        <nav>
+            <a href="#">Works</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <main class="projects-grid">
+        <div class="project-card">
+            <img src="https://via.placeholder.com/1920x1080/111" alt="Project 1">
+            <div class="project-info">
+                <h2 class="project-title">Multimedia Installation</h2>
+                <div class="project-category">Interactive / Art</div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <img src="https://via.placeholder.com/1920x1080/222" alt="Project 2">
+            <div class="project-info">
+                <h2 class="project-title">Light & Sound Show</h2>
+                <div class="project-category">Stage Design</div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <img src="https://via.placeholder.com/1920x1080/333" alt="Project 3">
+            <div class="project-info">
+                <h2 class="project-title">Digital Sculpture</h2>
+                <div class="project-category">3D / Motion</div>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <img src="https://via.placeholder.com/1920x1080/444" alt="Project 4">
+            <div class="project-info">
+                <h2 class="project-title">Future Vision</h2>
+                <div class="project-category">Exhibition</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 ALL RIGHTS RESERVED</p>
+    </footer>
+
+</body>
+</html>
