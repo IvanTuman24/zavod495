@@ -5,22 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZAVOD495 | Portfolio</title>
     <style>
-        /* БАЗОВЫЕ СТИЛИ */
         body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; }
 
-        /* ШАПКА: Видео-логотип (подстроен под фрейм) */
-        header { padding: 40px 20px; text-align: center; }
-        .logo-frame { 
-            width: 150px; height: 60px; margin: 0 auto 30px; 
-            position: relative; overflow: hidden; 
+        /* ШАПКА: Теперь с обычным логотипом png */
+        header { padding: 60px 20px; text-align: center; }
+        .logo-container { 
+            width: 200px; /* Можно отрегулировать ширину под твой логотип */
+            margin: 0 auto 40px; 
         }
-        .logo-frame iframe {
-            position: absolute; top: 50%; left: 50%;
-            width: 280%; height: 280%; transform: translate(-50%, -50%);
-            pointer-events: none;
+        .logo-container img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
         }
 
-        /* НАВИГАЦИЯ: Категории (Промо, Инсталляции, Пространство, Set-design) */
+        /* НАВИГАЦИЯ */
         .filters {
             display: flex; justify-content: center; flex-wrap: wrap;
             gap: 25px; margin-bottom: 50px;
@@ -35,7 +34,6 @@
             gap: 10px; padding: 10px;
         }
 
-        /* КАРТОЧКА-ССЫЛКА */
         .project-link { text-decoration: none; color: inherit; display: block; }
         
         .project-card {
@@ -43,19 +41,15 @@
             aspect-ratio: 16 / 9; overflow: hidden;
         }
 
-        /* Видео (слой 1) */
         .project-card iframe { position: absolute; width: 100%; height: 100%; border: none; z-index: 1; }
         
-        /* Превью-картинка (слой 2) */
         .project-card img {
             position: absolute; width: 100%; height: 100%; object-fit: cover;
             z-index: 2; transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.5s ease;
         }
 
-        /* ЭФФЕКТ ХОВЕРА: Зум и запуск видео (через прозрачность картинки) */
         .project-link:hover img { transform: scale(1.1); opacity: 0; }
 
-        /* Инфо о проекте */
         .project-info {
             position: absolute; bottom: 25px; left: 25px;
             text-transform: uppercase; font-size: 10px; letter-spacing: 2px;
@@ -71,8 +65,8 @@
 <body>
 
     <header>
-        <div class="logo-frame">
-            <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" allow="autoplay; fullscreen"></iframe>
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="ZAVOD495">
         </div>
 
         <nav class="filters">
@@ -88,7 +82,7 @@
         
         <a href="jumanji.html" class="project-link" data-category="install">
             <div class="project-card">
-                <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" allow="autoplay; fullscreen"></iframe>
+                <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0"></iframe>
                 <img src="assets/Project 1.jpg" alt="Jumanji">
                 <div class="project-info">JUMANJI</div>
             </div>
@@ -96,8 +90,8 @@
 
         <a href="yandexbox.html" class="project-link" data-category="promo">
             <div class="project-card">
-                <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" allow="autoplay; fullscreen"></iframe>
-                <img src="assets/yandexBOX/название_твоего_фото.jpg" alt="yandexBOX">
+                <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0"></iframe>
+                <img src="assets/yandexBOX/yandexBOX1.jpg" alt="yandexBOX">
                 <div class="project-info">yandexBOX</div>
             </div>
         </a>
@@ -107,7 +101,6 @@
     <footer>© 2026 ZAVOD495</footer>
 
     <script>
-        // СКРИПТ ФИЛЬТРАЦИИ
         const filterBtns = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.project-link');
 
