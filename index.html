@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZAVOD495 | Portfolio</title>
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: Helvetica, Arial, sans-serif; overflow-x: hidden; }
+        /* БАЗОВЫЕ СТИЛИ */
+        body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; }
 
-        /* ШАПКА: Видео-лого остается в центре */
-        header { padding: 60px 40px; text-align: center; }
+        /* ШАПКА: Видео-логотип (подстроен под фрейм) */
+        header { padding: 40px 20px; text-align: center; }
         .logo-frame { 
             width: 150px; height: 60px; margin: 0 auto 30px; 
             position: relative; overflow: hidden; 
@@ -19,13 +20,13 @@
             pointer-events: none;
         }
 
-        /* ФИЛЬТРЫ: Навигация по категориям */
+        /* НАВИГАЦИЯ: Категории (Промо, Инсталляции, Пространство, Set-design) */
         .filters {
             display: flex; justify-content: center; flex-wrap: wrap;
             gap: 25px; margin-bottom: 50px;
             text-transform: uppercase; font-size: 11px; letter-spacing: 2px;
         }
-        .filter-btn { cursor: pointer; opacity: 0.4; transition: 0.3s; }
+        .filter-btn { cursor: pointer; opacity: 0.4; transition: 0.3s; padding-bottom: 5px; border-bottom: 1px solid transparent; }
         .filter-btn.active, .filter-btn:hover { opacity: 1; border-bottom: 1px solid #fff; }
 
         /* СЕТКА ПРОЕКТОВ */
@@ -34,39 +35,44 @@
             gap: 10px; padding: 10px;
         }
 
-        /* КАРТОЧКА: Теперь это ссылка (тег <a>) */
+        /* КАРТОЧКА-ССЫЛКА */
         .project-link { text-decoration: none; color: inherit; display: block; }
-
+        
         .project-card {
             position: relative; background: #111;
             aspect-ratio: 16 / 9; overflow: hidden;
         }
 
+        /* Видео (слой 1) */
         .project-card iframe { position: absolute; width: 100%; height: 100%; border: none; z-index: 1; }
+        
+        /* Превью-картинка (слой 2) */
         .project-card img {
             position: absolute; width: 100%; height: 100%; object-fit: cover;
-            z-index: 2; transition: transform 0.8s ease, opacity 0.5s ease;
+            z-index: 2; transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.5s ease;
         }
 
-        /* Эффект при наведении на ссылку-карточку */
+        /* ЭФФЕКТ ХОВЕРА: Зум и запуск видео (через прозрачность картинки) */
         .project-link:hover img { transform: scale(1.1); opacity: 0; }
 
+        /* Инфо о проекте */
         .project-info {
             position: absolute; bottom: 25px; left: 25px;
             text-transform: uppercase; font-size: 10px; letter-spacing: 2px;
-            font-weight: bold; z-index: 10;
+            font-weight: bold; z-index: 10; pointer-events: none;
         }
 
         .hidden { display: none; }
 
         @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
+        footer { padding: 80px 20px; text-align: center; font-size: 10px; opacity: 0.2; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo-frame">
-            <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0"></iframe>
+            <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" allow="autoplay; fullscreen"></iframe>
         </div>
 
         <nav class="filters">
@@ -79,24 +85,31 @@
     </header>
 
     <main class="projects-grid">
-        <a href="project1.html" class="project-link" data-category="install">
+        
+        <a href="jumanji.html" class="project-link" data-category="install">
             <div class="project-card">
-                <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0"></iframe>
-                <img src="assets/Project 1.jpg" alt="Preview">
-                <div class="project-info">Interactive Light Project</div>
+                <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" allow="autoplay; fullscreen"></iframe>
+                <img src="assets/Project 1.jpg" alt="Jumanji">
+                <div class="project-info">JUMANJI</div>
             </div>
         </a>
 
-        <div class="project-card" data-category="promo">
-            <img src="assets/Project 2.jpg">
-            <div class="project-info">Brand Promo</div>
-        </div>
+        <a href="yandexbox.html" class="project-link" data-category="promo">
+            <div class="project-card">
+                <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" allow="autoplay; fullscreen"></iframe>
+                <img src="assets/yandexBOX/название_твоего_фото.jpg" alt="yandexBOX">
+                <div class="project-info">yandexBOX</div>
+            </div>
+        </a>
+
     </main>
 
+    <footer>© 2026 ZAVOD495</footer>
+
     <script>
-        // ЛОГИКА ФИЛЬТРАЦИИ
+        // СКРИПТ ФИЛЬТРАЦИИ
         const filterBtns = document.querySelectorAll('.filter-btn');
-        const cards = document.querySelectorAll('.project-link, .project-card[data-category]');
+        const cards = document.querySelectorAll('.project-link');
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -115,5 +128,6 @@
             });
         });
     </script>
+
 </body>
 </html>
