@@ -52,7 +52,75 @@
     <main class="projects-grid">
         
         <div class="project-card">
-            <iframe src="https://kinescope.io/embed/ВАШ_ID_ВИДЕО?autoplay=1&muted=1&loop=1&controls=0" 
+            <iframe src="<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAVOD495 | Portfolio</title>
+    <style>
+        body { margin: 0; background: #000; color: #fff; font-family: sans-serif; }
+        header { padding: 40px; text-align: center; }
+        .logo img { height: 60px; }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .project-card {
+            position: relative;
+            background: #111;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+        }
+
+        /* Стиль для видео из Kinescope */
+        .project-card iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+            pointer-events: none; /* Чтобы клики проходили сквоxt на карточку */
+        }
+
+        .project-info {
+            position: absolute;
+            bottom: 20px; left: 20px;
+            text-transform: uppercase;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo"><img src="assets/logo.svg" alt="ZAVOD495"></div>
+    </header>
+
+    <main class="projects-grid">
+        
+        <div class="project-card">
+            <iframe src="https://kinescope.io/bvFnvxfdfFhMEBsNZPxKFT" 
+                    allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer" 
+                    allowfullscreen></iframe>
+            <div class="project-info">Motion Design 01</div>
+        </div>
+
+        <div class="project-card">
+            <img src="assets/Project 2.jpg" style="width:100%; height:100%; object-fit:cover;">
+            <div class="project-info">Project Two</div>
+        </div>
+
+    </main>
+
+</body>
+</html>?autoplay=1&muted=1&loop=1&controls=0" 
                     allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer" 
                     allowfullscreen></iframe>
             <div class="project-info">Motion Design 01</div>
