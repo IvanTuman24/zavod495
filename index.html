@@ -5,40 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZAVOD495 | Portfolio</title>
     <style>
-        /* Базовые настройки */
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            background: #000;
-        }
-        
+        /* Базовые настройки — чистый черный фон */
         body { 
+            margin: 0; 
+            background: #000; 
             color: #fff; 
             font-family: 'Helvetica', Arial, sans-serif; 
             overflow-x: hidden; 
         }
 
-        /* КОНТЕЙНЕР ДЛЯ ИНТЕРАКТИВНОГО ФОНА */
-        #vanta-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: -1; /* Фон всегда сзади */
-        }
-
-        /* Контент сайта (все, что поверх фона) */
-        .content-wrapper {
-            position: relative;
-            z-index: 1;
-        }
-
         /* ШАПКА */
         header { padding: 60px 20px; text-align: center; }
-        .logo-container { width: 100px; margin: 0 auto 40px; }
-        .logo-container img { width: 100%; display: block; }
+        .logo-container { 
+            width: 120px; /* Размер лого в шапке */
+            margin: 0 auto 40px; 
+        }
+        .logo-container img { 
+            width: 100%; 
+            height: auto; 
+            display: block; 
+        }
 
         /* ФИЛЬТРЫ */
         .filters {
@@ -72,10 +58,10 @@
         }
 
         .project-link { text-decoration: none; color: inherit; display: block; }
+        
         .project-card {
             position: relative; 
-            /* Делаем фон карточки почти прозрачным, чтобы дым был виден и под ней */
-            background: rgba(0, 0, 0, 0.3); 
+            background: #111;
             aspect-ratio: 16 / 9; 
             overflow: hidden;
         }
@@ -88,9 +74,11 @@
             transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
-        .project-link:hover img { transform: scale(1.05); }
+        .project-link:hover img { 
+            transform: scale(1.05); 
+        }
 
-        /* ТЕКСТ С ЭФФЕКТОМ ИСКЛЮЧЕНИЯ */
+        /* ЭФФЕКТ ИСКЛЮЧЕНИЯ ДЛЯ ТЕКСТА */
         .project-info {
             position: absolute; 
             bottom: 25px; 
@@ -107,92 +95,94 @@
             transition: opacity 0.8s ease;
         }
 
-        .project-link:hover .project-info { opacity: 1; }
+        .project-link:hover .project-info {
+            opacity: 1;
+        }
 
         .hidden { display: none; }
 
+        /* ПОДВАЛ (ФУТЕР) */
+        footer { 
+            padding: 100px 20px 60px; 
+            text-align: center; 
+        }
+
+        .footer-logo {
+            width: 80px; /* Размер лого в подвале */
+            margin: 0 auto 20px;
+            opacity: 0.5; /* Делаем чуть приглушенным */
+            transition: 0.3s;
+        }
+        
+        .footer-logo:hover { opacity: 1; }
+
+        .footer-logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .copyright {
+            font-size: 10px; 
+            opacity: 0.2; 
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Адаптивность */
         @media (max-width: 768px) { 
             .projects-grid { grid-template-columns: 1fr; } 
             .project-info { font-size: 30px; }
-        }
-
-        footer { 
-            padding: 80px 20px; 
-            text-align: center; 
-            font-size: 10px; 
-            opacity: 0.3; 
-            letter-spacing: 2px; 
         }
     </style>
 </head>
 <body>
 
-    <div id="vanta-canvas"></div>
+    <header>
+        <div class="logo-container">
+            <img src="assets/logo.shapka.png" alt="ZAVOD495">
+        </div>
 
-    <div class="content-wrapper">
-        <header>
-            <div class="logo-container">
-                <img src="assets/logo.png" alt="ZAVOD495">
+        <nav class="filters">
+            <div class="filter-btn active" data-filter="all">Все</div>
+            <div class="filter-btn" data-filter="promo">Промо акции</div>
+            <div class="filter-btn" data-filter="install">Инсталляции</div>
+            <div class="filter-btn" data-filter="space">Пространство</div>
+            <div class="filter-btn" data-filter="set">Set-design</div>
+        </nav>
+    </header>
+
+    <main class="projects-grid">
+        <a href="jumanji.html" class="project-link" data-category="promo">
+            <div class="project-card">
+                <img src="assets/jumanji/jumanji1.JPG" alt="Jumanji">
+                <div class="project-info">JUMANJI</div>
             </div>
-            <nav class="filters">
-                <div class="filter-btn active" data-filter="all">Все</div>
-                <div class="filter-btn" data-filter="promo">Промо акции</div>
-                <div class="filter-btn" data-filter="install">Инсталляции</div>
-                <div class="filter-btn" data-filter="space">Пространство</div>
-                <div class="filter-btn" data-filter="set">Set-design</div>
-            </nav>
-        </header>
+        </a>
 
-        <main class="projects-grid">
-            <a href="jumanji.html" class="project-link" data-category="promo">
-                <div class="project-card">
-                    <img src="assets/jumanji/jumanji1.JPG" alt="Jumanji">
-                    <div class="project-info">JUMANJI</div>
-                </div>
-            </a>
-            <a href="yandexbox.html" class="project-link" data-category="promo">
-                <div class="project-card">
-                    <img src="assets/yandexBOX/yandexBOX1.jpg" alt="yandexBOX">
-                    <div class="project-info">yandexBOX</div>
-                </div>
-            </a>
-            <a href="asiamania.html" class="project-link" data-category="install">
-                <div class="project-card">
-                    <img src="assets/asiamania/asiamania1.jpg" alt="ASIAMANIA">
-                    <div class="project-info">ASIAMANIA</div>
-                </div>
-            </a>
-        </main>
+        <a href="yandexbox.html" class="project-link" data-category="promo">
+            <div class="project-card">
+                <img src="assets/yandexBOX/yandexBOX1.jpg" alt="yandexBOX">
+                <div class="project-info">yandexBOX</div>
+            </div>
+        </a>
 
-        <footer>© 2026 ZAVOD495</footer>
-    </div>
+        <a href="asiamania.html" class="project-link" data-category="install">
+            <div class="project-card">
+                <img src="assets/asiamania/asiamania1.jpg" alt="ASIAMANIA">
+                <div class="project-info">ASIAMANIA</div>
+            </div>
+        </a>
+    </main>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
+    <footer>
+        <div class="footer-logo">
+            <img src="assets/logo.podval.png" alt="ZAVOD LOGO">
+        </div>
+        <div class="copyright">© 2026 ZAVOD495</div>
+    </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            VANTA.FOG({
-                el: "#vanta-canvas",
-                mouseControls: true,
-                touchControls: true,
-                gyroControls: false,
-                minHeight: 200.00,
-                minWidth: 200.00,
-                
-                // НАСТРОЙКИ МИНИМАЛИЗМА
-                // Чем темнее эти цвета, тем меньше кажется дыма
-                highlightColor: 0x20c268, // Приглушенный зеленый блик
-                midtoneColor: 0x07331a,   // Очень темный зеленый средний тон
-                lowlightColor: 0x000000,  // Черные тени
-                baseColor: 0x000000,     // Черная база
-                
-                blurFactor: 0.8,          // Сильное размытие для мягкости
-                speed: 1.10,              // Спокойная скорость
-                zoom: 1.30                // Крупный масштаб, больше черного фона
-            });
-        });
-
         // Логика фильтрации
         const filterBtns = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.project-link');
@@ -202,6 +192,7 @@
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 const filter = btn.getAttribute('data-filter');
+
                 cards.forEach(card => {
                     const category = card.getAttribute('data-category');
                     if (filter === 'all' || category === filter) {
@@ -213,5 +204,6 @@
             });
         });
     </script>
+
 </body>
 </html>
