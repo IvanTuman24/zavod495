@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Light | ZAVOD495</title>
+    <style>
+        body { margin: 0; background: #000; color: #fff; font-family: Helvetica, sans-serif; }
+
+        /* ЛОГО: Клик по нему вернет на главную */
+        header { padding: 40px; text-align: center; }
+        .logo-back { text-decoration: none; color: #fff; }
+        .logo-back img { height: 35px; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+
+        /* ТЕКСТОВЫЙ БЛОК */
+        .project-content { margin-bottom: 80px; }
+        .title { font-size: 40px; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 20px; }
+        .description { font-size: 16px; line-height: 1.8; opacity: 0.6; max-width: 700px; }
+
+        /* ГАЛЕРЕЯ: Фотографии в ряд (лентой вниз) */
+        .gallery { display: flex; flex-direction: column; gap: 15px; }
+        .gallery img { width: 100%; height: auto; display: block; background: #111; }
+
+        .back-btn { 
+            display: inline-block; margin-top: 50px; 
+            text-decoration: none; color: #fff; font-size: 11px; 
+            text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid #fff;
+        }
+
+        footer { padding: 100px 0 50px; text-align: center; opacity: 0.2; font-size: 10px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo-back">
+            <img src="assets/logo.svg" alt="ZAVOD495">
+        </a>
+    </header>
+
+    <main class="container">
+        <div class="project-content">
+            <h1 class="title">Interactive Light</h1>
+            <p class="description">
+                Здесь располагается подробное описание вашего проекта. 
+                Расскажите о концепции, используемых технологиях и о том, какой опыт получил зритель. 
+                Этот блок помогает заказчику понять глубину вашей работы.
+            </p>
+            <a href="index.html" class="back-btn">Все проекты</a>
+        </div>
+
+        <section class="gallery">
+            <img src="assets/Project 1.jpg" alt="Detail 1">
+            <img src="assets/Project 2.jpg" alt="Detail 2">
+            <img src="assets/Project 3.jpg" alt="Detail 3">
+        </section>
+    </main>
+
+    <footer>© 2026 ZAVOD495</footer>
+
+</body>
+</html>
