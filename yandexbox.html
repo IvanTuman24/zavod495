@@ -3,172 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAVOD495 | Portfolio</title>
+    <title>yandexBOX | ZAVOD495</title>
     <style>
-        /* Базовые настройки */
-        body { 
-            margin: 0; 
-            background: #000; 
-            color: #fff; 
-            font-family: 'Helvetica', Arial, sans-serif; 
-            overflow-x: hidden; 
-        }
-
-        /* ШАПКА: Статичный логотип PNG */
-        header { padding: 60px 20px; text-align: center; }
-        .logo-container { 
-            width: 200px; /* Ширина логотипа */
-            margin: 0 auto 40px; 
-        }
-        .logo-container img { 
-            width: 100%; 
-            height: auto; 
-            display: block; 
-        }
-
-        /* ФИЛЬТРЫ: Названия видов ремесла */
-        .filters {
-            display: flex; 
-            justify-content: center; 
-            flex-wrap: wrap;
-            gap: 25px; 
-            margin-bottom: 50px;
-            text-transform: uppercase; 
-            font-size: 11px; 
-            letter-spacing: 2px;
-        }
-        .filter-btn { 
-            cursor: pointer; 
-            opacity: 0.4; 
-            transition: 0.3s; 
-            padding-bottom: 5px; 
-            border-bottom: 1px solid transparent; 
-        }
-        .filter-btn.active, .filter-btn:hover { 
-            opacity: 1; 
-            border-bottom: 1px solid #fff; 
-        }
-
-        /* СЕТКА ПРОЕКТОВ: 2 колонки */
-        .projects-grid {
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px; 
-            padding: 10px;
-        }
-
-        /* КАРТОЧКА ПРОЕКТА */
-        .project-link { text-decoration: none; color: inherit; display: block; }
+        body { margin: 0; background: #000; color: #fff; font-family: Helvetica, sans-serif; }
         
-        .project-card {
-            position: relative; 
-            background: #111;
-            aspect-ratio: 16 / 9; 
-            overflow: hidden;
-        }
+        header { padding: 40px; text-align: center; }
+        .logo-link img { height: 35px; } /* Логотип на внутренней странице поменьше */
 
-        /* КАРТИНКА: Только фото, без видео */
-        .project-card img {
-            position: absolute; 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1); /* Плавный зум */
-        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px 100px; }
+        
+        .project-header { margin-bottom: 80px; }
+        .title { font-size: 42px; text-transform: uppercase; letter-spacing: 5px; margin-bottom: 20px; }
+        .description { font-size: 16px; line-height: 1.8; opacity: 0.6; max-width: 750px; }
 
-        /* ЭФФЕКТ ХОВЕРА: Только увеличение картинки */
-        .project-link:hover img { 
-            transform: scale(1.08); 
-        }
+        .gallery { display: flex; flex-direction: column; gap: 40px; }
+        .gallery img { width: 100%; height: auto; display: block; }
 
-        /* ИНФОРМАЦИЯ О ПРОЕКТЕ */
-        .project-info {
-            position: absolute; 
-            bottom: 25px; 
-            left: 25px;
-            text-transform: uppercase; 
-            font-size: 10px; 
-            letter-spacing: 2px;
-            font-weight: bold; 
-            z-index: 10; 
-            pointer-events: none;
-        }
+        .back-nav { margin-top: 60px; text-align: center; }
+        .back-btn { text-decoration: none; color: #fff; font-size: 12px; text-transform: uppercase; border-bottom: 1px solid #fff; padding-bottom: 5px; }
 
-        /* Класс для фильтрации */
-        .hidden { display: none; }
-
-        /* Адаптивность для мобильных */
-        @media (max-width: 768px) { 
-            .projects-grid { grid-template-columns: 1fr; } 
-        }
-
-        footer { 
-            padding: 80px 20px; 
-            text-align: center; 
-            font-size: 10px; 
-            opacity: 0.2; 
-            letter-spacing: 2px; 
-        }
+        footer { padding: 80px 0; text-align: center; opacity: 0.2; font-size: 10px; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-container">
+        <a href="index.html" class="logo-link">
             <img src="assets/logo.png" alt="ZAVOD495">
-        </div>
-
-        <nav class="filters">
-            <div class="filter-btn active" data-filter="all">Все</div>
-            <div class="filter-btn" data-filter="promo">Промо акции</div>
-            <div class="filter-btn" data-filter="install">Инсталляции</div>
-            <div class="filter-btn" data-filter="space">Пространство</div>
-            <div class="filter-btn" data-filter="set">Set-design</div>
-        </nav>
+        </a>
     </header>
 
-    <main class="projects-grid">
-        
-        <a href="jumanji.html" class="project-link" data-category="install">
-            <div class="project-card">
-                <img src="assets/Project 1.jpg" alt="Jumanji">
-                <div class="project-info">JUMANJI</div>
-            </div>
-        </a>
+    <main class="container">
+        <div class="project-header">
+            <h1 class="title">yandexBOX</h1>
+            <p class="description">
+                Промо-акция для компании Яндекс. Интерактивная инсталляция, реализованная с применением современных визуальных технологий.
+            </p>
+        </div>
 
-        <a href="yandexbox.html" class="project-link" data-category="promo">
-            <div class="project-card">
-                <img src="assets/yandexBOX/yandexBOX1.jpg" alt="yandexBOX">
-                <div class="project-info">yandexBOX</div>
-            </div>
-        </a>
+        <section class="gallery">
+            <img src="assets/yandexBOX/yandexBOX1.jpg" alt="yandexBOX 1">
+            <img src="assets/yandexBOX/yandexBOX2.jpg" alt="yandexBOX 2">
+            <img src="assets/yandexBOX/yandexBOX3.jpg" alt="yandexBOX 3">
+            <img src="assets/yandexBOX/yandexBOX4.jpg" alt="yandexBOX 4">
+        </section>
 
+        <div class="back-nav">
+            <a href="index.html" class="back-btn">Назад к проектам</a>
+        </div>
     </main>
 
     <footer>© 2026 ZAVOD495</footer>
-
-    <script>
-        // ЛОГИКА ФИЛЬТРАЦИИ ПО КАТЕГОРИЯМ
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const cards = document.querySelectorAll('.project-link');
-
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                const filter = btn.getAttribute('data-filter');
-
-                cards.forEach(card => {
-                    const category = card.getAttribute('data-category');
-                    if (filter === 'all' || category === filter) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-            });
-        });
-    </script>
 
 </body>
 </html>
