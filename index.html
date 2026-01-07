@@ -76,12 +76,12 @@
             transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1); /* Плавный зум */
         }
 
-        /* ЭФФЕКТ ХОВЕРА: Только увеличение картинки */
+        /* ЭФФЕКТ ХОВЕРА: Увеличение картинки */
         .project-link:hover img { 
             transform: scale(1.05); 
         }
 
-        /* ИНФОРМАЦИЯ О ПРОЕКТЕ */
+        /* ИНФОРМАЦИЯ О ПРОЕКТЕ С ЭФФЕКТОМ ИСКЛЮЧЕНИЯ */
         .project-info {
             position: absolute; 
             bottom: 25px; 
@@ -92,6 +92,17 @@
             font-weight: bold; 
             z-index: 10; 
             pointer-events: none;
+
+            /* ЭФФЕКТ ЗАГОРАНИЯ */
+            color: #fff;
+            opacity: 0; /* Изначально скрыт */
+            mix-blend-mode: exclusion; /* Метод наложения Исключение */
+            transition: opacity 0.8s ease; /* Плавное проявление */
+        }
+
+        /* При наведении текст загорается */
+        .project-link:hover .project-info {
+            opacity: 1;
         }
 
         /* Класс для фильтрации */
@@ -100,6 +111,7 @@
         /* Адаптивность для мобильных */
         @media (max-width: 768px) { 
             .projects-grid { grid-template-columns: 1fr; } 
+            .project-info { font-size: 30px; } /* Уменьшаем шрифт на мобильных */
         }
 
         footer { 
