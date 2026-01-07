@@ -5,12 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZAVOD495 | Portfolio</title>
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; }
+        /* Базовые настройки */
+        body { 
+            margin: 0; 
+            background: #000; 
+            color: #fff; 
+            font-family: 'Helvetica', Arial, sans-serif; 
+            overflow-x: hidden; 
+        }
 
-        /* ШАПКА: Теперь с обычным логотипом png */
+        /* ШАПКА: Статичный логотип PNG */
         header { padding: 60px 20px; text-align: center; }
         .logo-container { 
-            width: 200px; /* Можно отрегулировать ширину под твой логотип */
+            width: 200px; /* Ширина логотипа */
             margin: 0 auto 40px; 
         }
         .logo-container img { 
@@ -19,47 +26,89 @@
             display: block; 
         }
 
-        /* НАВИГАЦИЯ */
+        /* ФИЛЬТРЫ: Названия видов ремесла */
         .filters {
-            display: flex; justify-content: center; flex-wrap: wrap;
-            gap: 25px; margin-bottom: 50px;
-            text-transform: uppercase; font-size: 11px; letter-spacing: 2px;
+            display: flex; 
+            justify-content: center; 
+            flex-wrap: wrap;
+            gap: 25px; 
+            margin-bottom: 50px;
+            text-transform: uppercase; 
+            font-size: 11px; 
+            letter-spacing: 2px;
         }
-        .filter-btn { cursor: pointer; opacity: 0.4; transition: 0.3s; padding-bottom: 5px; border-bottom: 1px solid transparent; }
-        .filter-btn.active, .filter-btn:hover { opacity: 1; border-bottom: 1px solid #fff; }
+        .filter-btn { 
+            cursor: pointer; 
+            opacity: 0.4; 
+            transition: 0.3s; 
+            padding-bottom: 5px; 
+            border-bottom: 1px solid transparent; 
+        }
+        .filter-btn.active, .filter-btn:hover { 
+            opacity: 1; 
+            border-bottom: 1px solid #fff; 
+        }
 
-        /* СЕТКА ПРОЕКТОВ */
+        /* СЕТКА ПРОЕКТОВ: 2 колонки */
         .projects-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 10px; padding: 10px;
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px; 
+            padding: 10px;
         }
 
+        /* КАРТОЧКА ПРОЕКТА */
         .project-link { text-decoration: none; color: inherit; display: block; }
         
         .project-card {
-            position: relative; background: #111;
-            aspect-ratio: 16 / 9; overflow: hidden;
+            position: relative; 
+            background: #111;
+            aspect-ratio: 16 / 9; 
+            overflow: hidden;
         }
 
-        .project-card iframe { position: absolute; width: 100%; height: 100%; border: none; z-index: 1; }
-        
+        /* КАРТИНКА: Только фото, без видео */
         .project-card img {
-            position: absolute; width: 100%; height: 100%; object-fit: cover;
-            z-index: 2; transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.5s ease;
+            position: absolute; 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1); /* Плавный зум */
         }
 
-        .project-link:hover img { transform: scale(1.1); opacity: 0; }
+        /* ЭФФЕКТ ХОВЕРА: Только увеличение картинки */
+        .project-link:hover img { 
+            transform: scale(1.08); 
+        }
 
+        /* ИНФОРМАЦИЯ О ПРОЕКТЕ */
         .project-info {
-            position: absolute; bottom: 25px; left: 25px;
-            text-transform: uppercase; font-size: 10px; letter-spacing: 2px;
-            font-weight: bold; z-index: 10; pointer-events: none;
+            position: absolute; 
+            bottom: 25px; 
+            left: 25px;
+            text-transform: uppercase; 
+            font-size: 10px; 
+            letter-spacing: 2px;
+            font-weight: bold; 
+            z-index: 10; 
+            pointer-events: none;
         }
 
+        /* Класс для фильтрации */
         .hidden { display: none; }
 
-        @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
-        footer { padding: 80px 20px; text-align: center; font-size: 10px; opacity: 0.2; letter-spacing: 2px; }
+        /* Адаптивность для мобильных */
+        @media (max-width: 768px) { 
+            .projects-grid { grid-template-columns: 1fr; } 
+        }
+
+        footer { 
+            padding: 80px 20px; 
+            text-align: center; 
+            font-size: 10px; 
+            opacity: 0.2; 
+            letter-spacing: 2px; 
+        }
     </style>
 </head>
 <body>
@@ -82,7 +131,6 @@
         
         <a href="jumanji.html" class="project-link" data-category="install">
             <div class="project-card">
-                <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0"></iframe>
                 <img src="assets/Project 1.jpg" alt="Jumanji">
                 <div class="project-info">JUMANJI</div>
             </div>
@@ -90,7 +138,6 @@
 
         <a href="yandexbox.html" class="project-link" data-category="promo">
             <div class="project-card">
-                <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0"></iframe>
                 <img src="assets/yandexBOX/yandexBOX1.jpg" alt="yandexBOX">
                 <div class="project-info">yandexBOX</div>
             </div>
@@ -101,6 +148,7 @@
     <footer>© 2026 ZAVOD495</footer>
 
     <script>
+        // ЛОГИКА ФИЛЬТРАЦИИ ПО КАТЕГОРИЯМ
         const filterBtns = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.project-link');
 
