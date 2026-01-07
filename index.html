@@ -74,7 +74,8 @@
         .project-link { text-decoration: none; color: inherit; display: block; }
         .project-card {
             position: relative; 
-            background: rgba(17, 17, 17, 0.8); /* Слегка прозрачный фон карточки */
+            /* Делаем фон карточки почти прозрачным, чтобы дым был виден и под ней */
+            background: rgba(0, 0, 0, 0.3); 
             aspect-ratio: 16 / 9; 
             overflow: hidden;
         }
@@ -170,7 +171,6 @@
     <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.fog.min.js"></script>
 
     <script>
-        // 1. Инициализация фона после загрузки документа
         document.addEventListener('DOMContentLoaded', () => {
             VANTA.FOG({
                 el: "#vanta-canvas",
@@ -179,17 +179,21 @@
                 gyroControls: false,
                 minHeight: 200.00,
                 minWidth: 200.00,
-                highlightColor: 0x24ff70, // Ярко-зеленый
-                midtoneColor: 0x083313,   // Темно-зеленый
-                lowlightColor: 0x0,       // Черный
-                baseColor: 0x0,           // Черный
-                blurFactor: 0.50,
-                speed: 1.50,
-                zoom: 1.00
+                
+                // НАСТРОЙКИ МИНИМАЛИЗМА
+                // Чем темнее эти цвета, тем меньше кажется дыма
+                highlightColor: 0x20c268, // Приглушенный зеленый блик
+                midtoneColor: 0x07331a,   // Очень темный зеленый средний тон
+                lowlightColor: 0x000000,  // Черные тени
+                baseColor: 0x000000,     // Черная база
+                
+                blurFactor: 0.8,          // Сильное размытие для мягкости
+                speed: 1.10,              // Спокойная скорость
+                zoom: 1.30                // Крупный масштаб, больше черного фона
             });
         });
 
-        // 2. Логика фильтрации
+        // Логика фильтрации
         const filterBtns = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.project-link');
 
