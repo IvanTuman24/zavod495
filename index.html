@@ -7,27 +7,50 @@
     <style>
         body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; }
 
-        /* Шапка с видеолого */
+        /* Шапка с компактным видео-логотипом */
         header { padding: 40px 20px; text-align: center; }
-        .logo-container { height: 80px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
-        .logo-container img { height: 100%; width: auto; } /* Сюда вставьте ваше видеолого */
+        
+        .logo-frame { 
+            width: 150px; /* Фиксированная ширина лого */
+            height: 60px; /* Фиксированная высота лого */
+            margin: 0 auto 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Видео подстраивается под фрейм логотипа */
+        .logo-frame iframe {
+            position: absolute;
+            top: 50%; left: 50%;
+            width: 250%; /* Чуть больше, чтобы обрезать края плеера */
+            height: 250%;
+            transform: translate(-50%, -50%);
+            border: none;
+            pointer-events: none;
+        }
 
-        /* Фильтры */
+        /* Навигация/Фильтры */
         .filters {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            flex-wrap: wrap;
+            gap: 25px;
             margin-bottom: 50px;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: 2px;
         }
         .filter-btn {
             cursor: pointer;
             opacity: 0.4;
             transition: 0.3s;
+            padding-bottom: 5px;
+            border-bottom: 1px solid transparent;
         }
-        .filter-btn.active, .filter-btn:hover { opacity: 1; }
+        .filter-btn.active, .filter-btn:hover { 
+            opacity: 1; 
+            border-bottom: 1px solid #fff;
+        }
 
         /* Сетка проектов */
         .projects-grid {
@@ -35,7 +58,6 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             padding: 10px;
-            min-height: 400px;
         }
 
         .project-card {
@@ -43,15 +65,12 @@
             background: #111;
             aspect-ratio: 16 / 9;
             overflow: hidden;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            display: block; /* По умолчанию видны все */
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
-        /* Класс для скрытия */
+        /* Плавное скрытие */
         .project-card.hidden {
             display: none;
-            opacity: 0;
-            transform: scale(0.95);
         }
 
         .project-card iframe, .project-card img {
@@ -65,53 +84,55 @@
 
         .project-info {
             position: absolute; bottom: 25px; left: 25px;
-            text-transform: uppercase; font-size: 11px;
+            text-transform: uppercase; font-size: 10px;
             letter-spacing: 2px; font-weight: bold; z-index: 10;
         }
 
         @media (max-width: 768px) {
             .projects-grid { grid-template-columns: 1fr; }
-            .filters { flex-direction: column; gap: 15px; align-items: center; }
+            .filters { gap: 15px; padding: 0 20px; }
         }
 
-        footer { padding: 60px 20px; text-align: center; font-size: 10px; opacity: 0.3; }
+        footer { padding: 80px 20px; text-align: center; font-size: 10px; opacity: 0.2; letter-spacing: 2px; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-container">
-            <img src="assets/logo.svg" alt="ZAVOD495">
+        <div class="logo-frame">
+            <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" 
+                    allow="autoplay; fullscreen"></iframe>
         </div>
 
         <nav class="filters">
             <div class="filter-btn active" data-filter="all">Все</div>
+            <div class="filter-btn" data-filter="promo">Промо акции</div>
             <div class="filter-btn" data-filter="install">Инсталляции</div>
+            <div class="filter-btn" data-filter="space">Пространство</div>
             <div class="filter-btn" data-filter="set">Set-design</div>
-            <div class="filter-btn" data-filter="decor">Декор</div>
         </nav>
     </header>
 
-    <main class="projects-grid" id="grid">
+    <main class="projects-grid">
         
         <div class="project-card" data-category="install">
-            <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" allow="autoplay; fullscreen"></iframe>
             <div class="project-info">Interactive Light</div>
         </div>
 
-        <div class="project-card" data-category="set">
+        <div class="project-card" data-category="promo">
             <img src="assets/Project 2.jpg">
-            <div class="project-info">Stage Design 2026</div>
+            <div class="project-info">Brand Promo Event</div>
         </div>
 
-        <div class="project-card" data-category="decor">
+        <div class="project-card" data-category="space">
             <img src="assets/Project 3.jpg">
-            <div class="project-info">Organic Decor</div>
+            <div class="project-info">Art Space Design</div>
         </div>
 
-        <div class="project-card" data-category="install">
+        <div class="project-card" data-category="set">
             <img src="assets/Project 1.jpg">
-            <div class="project-info">Digital Forest</div>
+            <div class="project-info">Stage Concept</div>
         </div>
 
     </main>
@@ -124,7 +145,6 @@
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Переключаем активную кнопку
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
@@ -135,10 +155,11 @@
                     
                     if (filter === 'all' || category === filter) {
                         card.classList.remove('hidden');
-                        setTimeout(() => card.style.opacity = '1', 10);
+                        setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'scale(1)'; }, 10);
                     } else {
                         card.style.opacity = '0';
-                        setTimeout(() => card.classList.add('hidden'), 400);
+                        card.style.transform = 'scale(0.95)';
+                        setTimeout(() => card.classList.add('hidden'), 500);
                     }
                 });
             });
