@@ -3,17 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAVOD495</title>
+    <title>ZAVOD495 | Portfolio</title>
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: Helvetica, Arial, sans-serif; }
+        body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; }
+
+        /* Шапка с видеолого */
         header { padding: 40px 20px; text-align: center; }
-        .logo img { height: 45px; width: auto; display: inline-block; }
-        
+        .logo-container { height: 80px; display: flex; justify-content: center; align-items: center; margin-bottom: 20px; }
+        .logo-container img { height: 100%; width: auto; } /* Сюда вставьте ваше видеолого */
+
+        /* Фильтры */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+        .filter-btn {
+            cursor: pointer;
+            opacity: 0.4;
+            transition: 0.3s;
+        }
+        .filter-btn.active, .filter-btn:hover { opacity: 1; }
+
+        /* Сетка проектов */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             padding: 10px;
+            min-height: 400px;
         }
 
         .project-card {
@@ -21,59 +43,107 @@
             background: #111;
             aspect-ratio: 16 / 9;
             overflow: hidden;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            display: block; /* По умолчанию видны все */
+        }
+
+        /* Класс для скрытия */
+        .project-card.hidden {
+            display: none;
+            opacity: 0;
+            transform: scale(0.95);
         }
 
         .project-card iframe, .project-card img {
-            position: absolute;
-            top: 0; left: 0;
+            position: absolute; top: 0; left: 0;
             width: 100%; height: 100%;
-            border: none;
-            object-fit: cover;
+            border: none; object-fit: cover;
+            transition: transform 0.8s ease;
         }
 
+        .project-card:hover img { transform: scale(1.05); }
+
         .project-info {
-            position: absolute;
-            bottom: 20px; left: 20px;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 2px;
-            z-index: 10;
+            position: absolute; bottom: 25px; left: 25px;
+            text-transform: uppercase; font-size: 11px;
+            letter-spacing: 2px; font-weight: bold; z-index: 10;
         }
 
         @media (max-width: 768px) {
             .projects-grid { grid-template-columns: 1fr; }
+            .filters { flex-direction: column; gap: 15px; align-items: center; }
         }
+
+        footer { padding: 60px 20px; text-align: center; font-size: 10px; opacity: 0.3; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">
+        <div class="logo-container">
             <img src="assets/logo.svg" alt="ZAVOD495">
         </div>
+
+        <nav class="filters">
+            <div class="filter-btn active" data-filter="all">Все</div>
+            <div class="filter-btn" data-filter="install">Инсталляции</div>
+            <div class="filter-btn" data-filter="set">Set-design</div>
+            <div class="filter-btn" data-filter="decor">Декор</div>
+        </nav>
     </header>
 
-    <main class="projects-grid">
-        <div class="project-card">
+    <main class="projects-grid" id="grid">
+        
+        <div class="project-card" data-category="install">
             <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-            <div class="project-info">Motion Design 01</div>
+            <div class="project-info">Interactive Light</div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="set">
             <img src="assets/Project 2.jpg">
-            <div class="project-info">Project Two</div>
+            <div class="project-info">Stage Design 2026</div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="decor">
             <img src="assets/Project 3.jpg">
-            <div class="project-info">Project Three</div>
+            <div class="project-info">Organic Decor</div>
         </div>
 
-        <div class="project-card">
+        <div class="project-card" data-category="install">
             <img src="assets/Project 1.jpg">
-            <div class="project-info">Project Four</div>
+            <div class="project-info">Digital Forest</div>
         </div>
+
     </main>
+
+    <footer>© 2026 ZAVOD495</footer>
+
+    <script>
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.project-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Переключаем активную кнопку
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filter = btn.getAttribute('data-filter');
+
+                cards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    
+                    if (filter === 'all' || category === filter) {
+                        card.classList.remove('hidden');
+                        setTimeout(() => card.style.opacity = '1', 10);
+                    } else {
+                        card.style.opacity = '0';
+                        setTimeout(() => card.classList.add('hidden'), 400);
+                    }
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
