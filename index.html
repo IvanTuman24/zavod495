@@ -5,132 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZAVOD495 | Portfolio</title>
     <style>
-        /* ОБЩИЕ СТИЛИ: Задают атмосферу (черный фон, сброс отступов) */
-        body { 
-            margin: 0; 
-            background: #000; 
-            color: #fff; 
-            font-family: 'Helvetica', Arial, sans-serif; 
-            overflow-x: hidden; 
-        }
+        body { margin: 0; background: #000; color: #fff; font-family: Helvetica, Arial, sans-serif; overflow-x: hidden; }
 
-        /* ШАПКА: Здесь живет ваше видео-лого */
+        /* ШАПКА: Видео-лого остается в центре */
         header { padding: 40px 20px; text-align: center; }
-        
         .logo-frame { 
-            width: 150px; /* Ширина вашего лого */
-            height: 60px; /* Высота вашего лого */
-            margin: 0 auto 30px; 
-            position: relative; 
-            overflow: hidden; /* Обрезает всё, что выходит за рамки 150x60 */
+            width: 150px; height: 60px; margin: 0 auto 30px; 
+            position: relative; overflow: hidden; 
         }
-        
         .logo-frame iframe {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 280%; /* Растягиваем видео внутри рамки, чтобы скрыть края плеера */
-            height: 280%;
-            transform: translate(-50%, -50%);
-            pointer-events: none; /* Чтобы нельзя было случайно нажать паузу на логотипе */
-        }
-
-        /* НАВИГАЦИЯ: Кнопки фильтрации проектов */
-        .filters {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 25px;
-            margin-bottom: 50px;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 2px;
-        }
-        
-        .filter-btn {
-            cursor: pointer;
-            opacity: 0.4;
-            transition: 0.3s;
-            padding-bottom: 5px;
-            border-bottom: 1px solid transparent;
-        }
-        
-        .filter-btn.active, .filter-btn:hover { 
-            opacity: 1; 
-            border-bottom: 1px solid #fff; 
-        }
-
-        /* СЕТКА: 2 колонки для десктопа, 1 для мобилок */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            padding: 10px;
-        }
-
-        /* КАРТОЧКА: Главный контейнер для превью и видео */
-        .project-card {
-            position: relative;
-            background: #111;
-            aspect-ratio: 16 / 9;
-            overflow: hidden;
-            transition: opacity 0.5s ease;
-        }
-
-        /* Настройка видео внутри карточки */
-        .project-card iframe {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            border: none;
-            z-index: 1; /* Видео лежит на самом нижнем слое */
-        }
-
-        /* Настройка картинки превью */
-        .project-card img {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: 2; /* Картинка перекрывает видео сверху */
-            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.5s ease;
-        }
-
-        /* ЭФФЕКТ ПРИ НАВЕДЕНИИ: Картинка исчезает и увеличивается */
-        .project-card:hover img {
-            transform: scale(1.1); /* Тот самый легкий зум */
-            opacity: 0; /* Делаем картинку прозрачной, открывая видео под ней */
-        }
-
-        /* ТЕКСТ ПРОЕКТА: Название в углу */
-        .project-info {
-            position: absolute;
-            bottom: 25px; left: 25px;
-            text-transform: uppercase;
-            font-size: 10px;
-            letter-spacing: 2px;
-            font-weight: bold;
-            z-index: 10; /* Текст всегда поверх и видео, и картинки */
+            position: absolute; top: 50%; left: 50%;
+            width: 280%; height: 280%; transform: translate(-50%, -50%);
             pointer-events: none;
         }
 
-        /* КЛАСС ДЛЯ СКРЫТИЯ: Используется скриптом при фильтрации */
-        .project-card.hidden { display: none; }
+        /* ФИЛЬТРЫ: Навигация по категориям */
+        .filters {
+            display: flex; justify-content: center; flex-wrap: wrap;
+            gap: 25px; margin-bottom: 50px;
+            text-transform: uppercase; font-size: 11px; letter-spacing: 2px;
+        }
+        .filter-btn { cursor: pointer; opacity: 0.4; transition: 0.3s; }
+        .filter-btn.active, .filter-btn:hover { opacity: 1; border-bottom: 1px solid #fff; }
 
-        /* МОБИЛЬНАЯ АДАПТАЦИЯ */
-        @media (max-width: 768px) {
-            .projects-grid { grid-template-columns: 1fr; }
-            .filters { gap: 15px; }
+        /* СЕТКА ПРОЕКТОВ */
+        .projects-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 10px; padding: 10px;
         }
 
-        footer { padding: 80px 20px; text-align: center; font-size: 10px; opacity: 0.2; letter-spacing: 2px; }
+        /* КАРТОЧКА: Теперь это ссылка (тег <a>) */
+        .project-link { text-decoration: none; color: inherit; display: block; }
+
+        .project-card {
+            position: relative; background: #111;
+            aspect-ratio: 16 / 9; overflow: hidden;
+        }
+
+        .project-card iframe { position: absolute; width: 100%; height: 100%; border: none; z-index: 1; }
+        .project-card img {
+            position: absolute; width: 100%; height: 100%; object-fit: cover;
+            z-index: 2; transition: transform 0.8s ease, opacity 0.5s ease;
+        }
+
+        /* Эффект при наведении на ссылку-карточку */
+        .project-link:hover img { transform: scale(1.1); opacity: 0; }
+
+        .project-info {
+            position: absolute; bottom: 25px; left: 25px;
+            text-transform: uppercase; font-size: 10px; letter-spacing: 2px;
+            font-weight: bold; z-index: 10;
+        }
+
+        .hidden { display: none; }
+
+        @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
     <header>
         <div class="logo-frame">
-            <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" 
-                    allow="autoplay; fullscreen"></iframe>
+            <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0"></iframe>
         </div>
 
         <nav class="filters">
@@ -142,50 +78,35 @@
         </nav>
     </header>
 
-    <main class="projects-grid" id="main-grid">
-        
-        <div class="project-card" data-category="install">
-            <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" allow="autoplay; fullscreen"></iframe>
-            <img src="assets/Project 1.jpg" alt="Preview 1">
-            <div class="project-info">Interactive Light</div>
-        </div>
+    <main class="projects-grid">
+        <a href="project1.html" class="project-link" data-category="install">
+            <div class="project-card">
+                <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0"></iframe>
+                <img src="assets/Project 1.jpg" alt="Preview">
+                <div class="project-info">Interactive Light Project</div>
+            </div>
+        </a>
 
         <div class="project-card" data-category="promo">
-            <img src="assets/Project 2.jpg" alt="Preview 2">
-            <div class="project-info">Brand Event</div>
+            <img src="assets/Project 2.jpg">
+            <div class="project-info">Brand Promo</div>
         </div>
-
-        <div class="project-card" data-category="space">
-            <img src="assets/Project 3.jpg" alt="Preview 3">
-            <div class="project-info">Art Space</div>
-        </div>
-
-        <div class="project-card" data-category="set">
-            <img src="assets/Project 1.jpg" alt="Preview 4">
-            <div class="project-info">Stage Design</div>
-        </div>
-
     </main>
 
-    <footer>© 2026 ZAVOD495</footer>
-
     <script>
+        // ЛОГИКА ФИЛЬТРАЦИИ
         const filterBtns = document.querySelectorAll('.filter-btn');
-        const cards = document.querySelectorAll('.project-card');
+        const cards = document.querySelectorAll('.project-link, .project-card[data-category]');
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Убираем подсветку со всех кнопок и даем её нажатой
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
-                const selectedFilter = btn.getAttribute('data-filter');
+                const filter = btn.getAttribute('data-filter');
 
                 cards.forEach(card => {
-                    const cardCategory = card.getAttribute('data-category');
-                    
-                    // Если нажато "Все" или категория совпадает — показываем, иначе скрываем
-                    if (selectedFilter === 'all' || cardCategory === selectedFilter) {
+                    const category = card.getAttribute('data-category');
+                    if (filter === 'all' || category === filter) {
                         card.classList.remove('hidden');
                     } else {
                         card.classList.add('hidden');
@@ -194,6 +115,5 @@
             });
         });
     </script>
-
 </body>
 </html>
