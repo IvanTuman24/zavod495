@@ -6,15 +6,12 @@
     <title>ZAVOD495</title>
     <style>
         body { margin: 0; background: #000; color: #fff; font-family: Helvetica, Arial, sans-serif; }
+        header { padding: 40px 20px; text-align: center; }
+        .logo img { height: 45px; width: auto; display: inline-block; }
         
-        /* Шапка */
-        header { padding: 50px 20px; text-align: center; }
-        .logo img { height: 45px; width: auto; }
-
-        /* Сетка проектов */
         .projects-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Две колонки */
+            grid-template-columns: repeat(2, 1fr);
             gap: 10px;
             padding: 10px;
         }
@@ -26,33 +23,26 @@
             overflow: hidden;
         }
 
-        /* Видео Kinescope на весь блок */
-        .project-card iframe {
+        .project-card iframe, .project-card img {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             border: none;
-        }
-
-        /* Картинки GitHub на весь блок */
-        .project-card img {
-            width: 100%; height: 100%;
             object-fit: cover;
-            display: block;
         }
 
-        /* Текст поверх */
         .project-info {
             position: absolute;
             bottom: 20px; left: 20px;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: 2px;
-            z-index: 5;
-            pointer-events: none;
+            z-index: 10;
         }
 
-        @media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            .projects-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -64,31 +54,25 @@
     </header>
 
     <main class="projects-grid">
-        
         <div class="project-card">
-            <iframe 
-                src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" 
-                allow="autoplay; fullscreen" 
-                allowfullscreen>
-            </iframe>
+            <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" allow="autoplay; fullscreen" allowfullscreen></iframe>
             <div class="project-info">Motion Design 01</div>
         </div>
 
         <div class="project-card">
-            <img src="assets/Project 2.jpg" alt="P2">
+            <img src="assets/Project 2.jpg">
             <div class="project-info">Project Two</div>
         </div>
 
         <div class="project-card">
-            <img src="assets/Project 3.jpg" alt="P3">
+            <img src="assets/Project 3.jpg">
             <div class="project-info">Project Three</div>
         </div>
 
         <div class="project-card">
-            <img src="assets/Project 1.jpg" alt="P1">
+            <img src="assets/Project 1.jpg">
             <div class="project-info">Project Four</div>
         </div>
-
     </main>
 
 </body>
