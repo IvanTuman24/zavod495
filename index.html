@@ -5,33 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZAVOD495 | Portfolio</title>
     <style>
-        /* Основные стили в стиле Sila Sveta */
-        body {
-            margin: 0;
-            background-color: #000;
-            color: #fff;
-            font-family: 'Helvetica', Arial, sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* Шапка с логотипом */
-        header {
-            padding: 40px;
-            display: flex;
-            justify-content: center; /* Логотип по центру для чистоты стиля */
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(15px);
-        }
-
-        .logo img {
-            height: 60px; /* Размер вашего логотипа */
-            width: auto;
-        }
-
-        /* Сетка проектов (2 колонки) */
+        body { margin: 0; background: #000; color: #fff; font-family: sans-serif; }
+        header { padding: 40px; text-align: center; }
+        .logo img { height: 60px; }
+        
         .projects-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -39,84 +16,54 @@
             padding: 10px;
         }
 
-        /* Адаптация под мобильные устройства (1 колонка) */
-        @media (max-width: 768px) {
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Карточка проекта */
         .project-card {
             position: relative;
-            background-color: #111;
+            background: #111;
             aspect-ratio: 16 / 9;
             overflow: hidden;
-            cursor: pointer;
         }
 
-        .project-card img, .project-card video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        /* Стиль для видео из Kinescope */
+        .project-card iframe {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            border: none;
+            pointer-events: none; /* Чтобы клики проходили сквоxt на карточку */
         }
 
-        /* Эффект при наведении */
-        .project-card:hover img, .project-card:hover video {
-            transform: scale(1.05);
-        }
-
-        /* Название проекта поверх картинки */
         .project-info {
             position: absolute;
-            bottom: 20px;
-            left: 20px;
+            bottom: 20px; left: 20px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 14px;
-            opacity: 0.8;
+            z-index: 10;
+            pointer-events: none;
         }
 
-        footer {
-            padding: 100px 20px;
-            text-align: center;
-            font-size: 12px;
-            letter-spacing: 1px;
-            opacity: 0.4;
-        }
+        @media (max-width: 768px) { .projects-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">
-            <img src="assets/logo.svg" alt="ZAVOD495">
-        </div>
+        <div class="logo"><img src="assets/logo.svg" alt="ZAVOD495"></div>
     </header>
 
     <main class="projects-grid">
         
         <div class="project-card">
-            <img src="assets/Project 1.jpg" alt="Project 1">
-            <div class="project-info">Project One</div>
+            <iframe src="https://kinescope.io/embed/ВАШ_ID_ВИДЕО?autoplay=1&muted=1&loop=1&controls=0" 
+                    allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer" 
+                    allowfullscreen></iframe>
+            <div class="project-info">Motion Design 01</div>
         </div>
 
         <div class="project-card">
-            <img src="assets/Project 2.jpg" alt="Project 2">
+            <img src="assets/Project 2.jpg" style="width:100%; height:100%; object-fit:cover;">
             <div class="project-info">Project Two</div>
         </div>
 
-        <div class="project-card">
-            <img src="assets/Project 3.jpg" alt="Project 3">
-            <div class="project-info">Project Three</div>
-        </div>
-
     </main>
-
-    <footer>
-        © 2026 ZAVOD495. ALL RIGHTS RESERVED.
-    </footer>
 
 </body>
 </html>
