@@ -8,14 +8,26 @@
         /* Базовые настройки */
         body { 
             margin: 0; 
-            background: #000; 
+            background: #000; /* Цвет фона на случай, если скрипт не прогрузится */
             color: #fff; 
             font-family: 'Helvetica', Arial, sans-serif; 
             overflow-x: hidden; 
+            position: relative; /* Важно для наложения слоев */
+        }
+
+        /* КОНТЕЙНЕР ДЛЯ ИНТЕРАКТИВНОГО ФОНА */
+        #vanta-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Убираем фон назад */
+            pointer-events: none; /* Фон не перехватывает клики */
         }
 
         /* ШАПКА: Статичный логотип PNG */
-        header { padding: 60px 20px; text-align: center; }
+        header { padding: 60px 20px; text-align: center; position: relative; z-index: 2; }
         .logo-container { 
             width: 100px; /* Ширина логотипа */
             margin: 0 auto 40px; 
@@ -55,6 +67,8 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 10px; 
             padding: 10px;
+            position: relative; 
+            z-index: 2; /* Контент поверх фона */
         }
 
         /* КАРТОЧКА ПРОЕКТА */
@@ -62,7 +76,7 @@
         
         .project-card {
             position: relative; 
-            background: #111;
+            background: #111; /* Фон карточки остается черным, чтобы не просвечивал */
             aspect-ratio: 16 / 9; 
             overflow: hidden;
         }
@@ -120,10 +134,13 @@
             font-size: 10px; 
             opacity: 0.2; 
             letter-spacing: 2px; 
+            position: relative; z-index: 2;
         }
     </style>
 </head>
 <body>
+
+    <div id="vanta-canvas"></div>
 
     <header>
         <div class="logo-container">
@@ -167,7 +184,6 @@
     <footer>© 2026 ZAVOD495</footer>
 
     <script>
-        // ЛОГИКА ФИЛЬТРАЦИИ ПО КАТЕГОРИЯМ
         const filterBtns = document.querySelectorAll('.filter-btn');
         const cards = document.querySelectorAll('.project-link');
 
@@ -187,6 +203,27 @@
                 });
             });
         });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta/dist/vanta.fog.min.js"></script>
+    
+    <script>
+        VANTA.FOG({
+          el: "#vanta-canvas", // ID блока, где будет фон
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          highlightColor: 0x4aff96, // Ярко-зеленые блики
+          midtoneColor: 0x00591e,   // Средний зеленый тон
+          lowlightColor: 0x000000,  // Тени (черный)
+          baseColor: 0x000000,     // Основной цвет фона (черный)
+          blurFactor: 0.6,          // Размытие
+          speed: 1.2,               // Скорость движения тумана
+          zoom: 1.0
+        })
     </script>
 
 </body>
