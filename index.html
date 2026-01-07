@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZAVOD495 | Portfolio</title>
     <style>
-        /* Базовые настройки — чистый черный фон */
+        /* Базовые настройки — Глубокий черный */
         body { 
             margin: 0; 
             background: #000; 
@@ -17,7 +17,7 @@
         /* ШАПКА */
         header { padding: 60px 20px; text-align: center; }
         .logo-container { 
-            width: 120px; /* Размер лого в шапке */
+            width: 120px; 
             margin: 0 auto 40px; 
         }
         .logo-container img { 
@@ -78,7 +78,7 @@
             transform: scale(1.05); 
         }
 
-        /* ЭФФЕКТ ИСКЛЮЧЕНИЯ ДЛЯ ТЕКСТА */
+        /* ЭФФЕКТ ИСКЛЮЧЕНИЯ (ВОЗВРАЩЕН) */
         .project-info {
             position: absolute; 
             bottom: 25px; 
@@ -90,27 +90,30 @@
             z-index: 10; 
             pointer-events: none;
             color: #fff;
-            opacity: 0;
-            mix-blend-mode: exclusion;
-            transition: opacity 0.8s ease;
+            
+            /* Эффект загорания */
+            opacity: 0; 
+            mix-blend-mode: exclusion; 
+            transition: opacity 0.8s ease; 
         }
 
+        /* Проявление текста при наведении */
         .project-link:hover .project-info {
             opacity: 1;
         }
 
         .hidden { display: none; }
 
-        /* ПОДВАЛ (ФУТЕР) */
+        /* ПОДВАЛ */
         footer { 
             padding: 100px 20px 60px; 
             text-align: center; 
         }
 
         .footer-logo {
-            width: 80px; /* Размер лого в подвале */
+            width: 80px; 
             margin: 0 auto 20px;
-            opacity: 0.5; /* Делаем чуть приглушенным */
+            opacity: 0.5;
             transition: 0.3s;
         }
         
@@ -129,7 +132,7 @@
             text-transform: uppercase;
         }
 
-        /* Адаптивность */
+        /* Адаптивность для телефонов */
         @media (max-width: 768px) { 
             .projects-grid { grid-template-columns: 1fr; } 
             .project-info { font-size: 30px; }
