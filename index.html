@@ -5,31 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZAVOD495 | Portfolio</title>
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; }
+        /* ОБЩИЕ СТИЛИ: Задают атмосферу (черный фон, сброс отступов) */
+        body { 
+            margin: 0; 
+            background: #000; 
+            color: #fff; 
+            font-family: 'Helvetica', Arial, sans-serif; 
+            overflow-x: hidden; 
+        }
 
-        /* Шапка с компактным видео-логотипом */
+        /* ШАПКА: Здесь живет ваше видео-лого */
         header { padding: 40px 20px; text-align: center; }
         
         .logo-frame { 
-            width: 150px; /* Фиксированная ширина лого */
-            height: 60px; /* Фиксированная высота лого */
-            margin: 0 auto 30px;
-            position: relative;
-            overflow: hidden;
+            width: 150px; /* Ширина вашего лого */
+            height: 60px; /* Высота вашего лого */
+            margin: 0 auto 30px; 
+            position: relative; 
+            overflow: hidden; /* Обрезает всё, что выходит за рамки 150x60 */
         }
         
-        /* Видео подстраивается под фрейм логотипа */
         .logo-frame iframe {
             position: absolute;
             top: 50%; left: 50%;
-            width: 250%; /* Чуть больше, чтобы обрезать края плеера */
-            height: 250%;
+            width: 280%; /* Растягиваем видео внутри рамки, чтобы скрыть края плеера */
+            height: 280%;
             transform: translate(-50%, -50%);
-            border: none;
-            pointer-events: none;
+            pointer-events: none; /* Чтобы нельзя было случайно нажать паузу на логотипе */
         }
 
-        /* Навигация/Фильтры */
+        /* НАВИГАЦИЯ: Кнопки фильтрации проектов */
         .filters {
             display: flex;
             justify-content: center;
@@ -40,6 +45,7 @@
             font-size: 11px;
             letter-spacing: 2px;
         }
+        
         .filter-btn {
             cursor: pointer;
             opacity: 0.4;
@@ -47,12 +53,13 @@
             padding-bottom: 5px;
             border-bottom: 1px solid transparent;
         }
+        
         .filter-btn.active, .filter-btn:hover { 
             opacity: 1; 
-            border-bottom: 1px solid #fff;
+            border-bottom: 1px solid #fff; 
         }
 
-        /* Сетка проектов */
+        /* СЕТКА: 2 колонки для десктопа, 1 для мобилок */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -60,37 +67,59 @@
             padding: 10px;
         }
 
+        /* КАРТОЧКА: Главный контейнер для превью и видео */
         .project-card {
             position: relative;
             background: #111;
             aspect-ratio: 16 / 9;
             overflow: hidden;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.5s ease;
         }
 
-        /* Плавное скрытие */
-        .project-card.hidden {
-            display: none;
-        }
-
-        .project-card iframe, .project-card img {
-            position: absolute; top: 0; left: 0;
+        /* Настройка видео внутри карточки */
+        .project-card iframe {
+            position: absolute;
+            top: 0; left: 0;
             width: 100%; height: 100%;
-            border: none; object-fit: cover;
-            transition: transform 0.8s ease;
+            border: none;
+            z-index: 1; /* Видео лежит на самом нижнем слое */
         }
 
-        .project-card:hover img { transform: scale(1.05); }
+        /* Настройка картинки превью */
+        .project-card img {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: 2; /* Картинка перекрывает видео сверху */
+            transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1), opacity 0.5s ease;
+        }
 
+        /* ЭФФЕКТ ПРИ НАВЕДЕНИИ: Картинка исчезает и увеличивается */
+        .project-card:hover img {
+            transform: scale(1.1); /* Тот самый легкий зум */
+            opacity: 0; /* Делаем картинку прозрачной, открывая видео под ней */
+        }
+
+        /* ТЕКСТ ПРОЕКТА: Название в углу */
         .project-info {
-            position: absolute; bottom: 25px; left: 25px;
-            text-transform: uppercase; font-size: 10px;
-            letter-spacing: 2px; font-weight: bold; z-index: 10;
+            position: absolute;
+            bottom: 25px; left: 25px;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 2px;
+            font-weight: bold;
+            z-index: 10; /* Текст всегда поверх и видео, и картинки */
+            pointer-events: none;
         }
 
+        /* КЛАСС ДЛЯ СКРЫТИЯ: Используется скриптом при фильтрации */
+        .project-card.hidden { display: none; }
+
+        /* МОБИЛЬНАЯ АДАПТАЦИЯ */
         @media (max-width: 768px) {
             .projects-grid { grid-template-columns: 1fr; }
-            .filters { gap: 15px; padding: 0 20px; }
+            .filters { gap: 15px; }
         }
 
         footer { padding: 80px 20px; text-align: center; font-size: 10px; opacity: 0.2; letter-spacing: 2px; }
@@ -113,26 +142,27 @@
         </nav>
     </header>
 
-    <main class="projects-grid">
+    <main class="projects-grid" id="main-grid">
         
         <div class="project-card" data-category="install">
-    <img src="assets/Project 1.jpg" alt="Project 1">
-    <div class="project-info">Interactive Installation</div>
-</div>
+            <iframe src="https://kinescope.io/embed/bvFnvxfdfFhMEBsNZPxKFT?autoplay=1&muted=1&loop=1&controls=0" allow="autoplay; fullscreen"></iframe>
+            <img src="assets/Project 1.jpg" alt="Preview 1">
+            <div class="project-info">Interactive Light</div>
+        </div>
 
         <div class="project-card" data-category="promo">
-            <img src="assets/Project 2.jpg">
-            <div class="project-info">Brand Promo Event</div>
+            <img src="assets/Project 2.jpg" alt="Preview 2">
+            <div class="project-info">Brand Event</div>
         </div>
 
         <div class="project-card" data-category="space">
-            <img src="assets/Project 3.jpg">
-            <div class="project-info">Art Space Design</div>
+            <img src="assets/Project 3.jpg" alt="Preview 3">
+            <div class="project-info">Art Space</div>
         </div>
 
         <div class="project-card" data-category="set">
-            <img src="assets/Project 1.jpg">
-            <div class="project-info">Stage Concept</div>
+            <img src="assets/Project 1.jpg" alt="Preview 4">
+            <div class="project-info">Stage Design</div>
         </div>
 
     </main>
@@ -145,21 +175,20 @@
 
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                // Убираем подсветку со всех кнопок и даем её нажатой
                 filterBtns.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                const filter = btn.getAttribute('data-filter');
+                const selectedFilter = btn.getAttribute('data-filter');
 
                 cards.forEach(card => {
-                    const category = card.getAttribute('data-category');
+                    const cardCategory = card.getAttribute('data-category');
                     
-                    if (filter === 'all' || category === filter) {
+                    // Если нажато "Все" или категория совпадает — показываем, иначе скрываем
+                    if (selectedFilter === 'all' || cardCategory === selectedFilter) {
                         card.classList.remove('hidden');
-                        setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'scale(1)'; }, 10);
                     } else {
-                        card.style.opacity = '0';
-                        card.style.transform = 'scale(0.95)';
-                        setTimeout(() => card.classList.add('hidden'), 500);
+                        card.classList.add('hidden');
                     }
                 });
             });
