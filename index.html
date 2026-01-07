@@ -3,141 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Creative Studio</title>
+    <title>ZAVOD495 | Portfolio</title>
     <style>
-        /* Общие стили в духе минимализма */
+        /* Основные стили в стиле Sila Sveta */
         body {
             margin: 0;
-            background-color: #490;
-            color: #f4f;
+            background-color: #000;
+            color: #fff;
             font-family: 'Helvetica', Arial, sans-serif;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Шапка сайта */
+        /* Шапка с логотипом */
         header {
             padding: 40px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            justify-content: center; /* Логотип по центру для чистоты стиля */
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(0,40,0,0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px);
         }
 
-        .logo { font-weight: bold; font-size: 24px; text-transform: uppercase; letter-spacing: 2px; }
-        
-        nav a {
-            color: #fff;
-            text-decoration: none;
-            margin-left: 30px;
-            font-size: 14px;
-            text-transform: uppercase;
-            opacity: 0.6;
-            transition: 0.3s;
+        .logo img {
+            height: 60px; /* Размер вашего логотипа */
+            width: auto;
         }
-        nav a:hover { opacity: 1; }
 
-        /* Сетка проектов */
+        /* Сетка проектов (2 колонки) */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(45%, 1fr));
-            gap: 20px;
-            padding: 20px;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 10px;
         }
 
+        /* Адаптация под мобильные устройства (1 колонка) */
         @media (max-width: 768px) {
-            .projects-grid { grid-template-columns: 1fr; }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
+        /* Карточка проекта */
         .project-card {
             position: relative;
-            overflow: hidden;
+            background-color: #111;
             aspect-ratio: 16 / 9;
-            background: #1a1a1a;
+            overflow: hidden;
             cursor: pointer;
         }
 
-        .project-card img {
+        .project-card img, .project-card video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         /* Эффект при наведении */
-        .project-card:hover img {
+        .project-card:hover img, .project-card:hover video {
             transform: scale(1.05);
         }
 
+        /* Название проекта поверх картинки */
         .project-info {
             position: absolute;
-            bottom: 30px;
-            left: 30px;
-            opacity: 0;
-            transition: 0.4s;
+            bottom: 20px;
+            left: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 14px;
+            opacity: 0.8;
         }
 
-        .project-card:hover .project-info {
-            opacity: 1;
+        footer {
+            padding: 100px 20px;
+            text-align: center;
+            font-size: 12px;
+            letter-spacing: 1px;
+            opacity: 0.4;
         }
-
-        .project-title { font-size: 24px; margin: 0; text-transform: uppercase; }
-        .project-category { font-size: 12px; opacity: 0.7; margin-top: 5px; }
-
-        /* Футер */
-        footer { padding: 100px 40px; text-align: center; border-top: 1px solid #333; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">YOUR NAME</div>
-        <nav>
-            <a href="#">Works</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-        </nav>
+        <div class="logo">
+            <img src="assets/logo.svg" alt="ZAVOD495">
+        </div>
     </header>
 
     <main class="projects-grid">
+        
         <div class="project-card">
-            <img src="https://via.placeholder.com/1920x1080/111" alt="Project 1">
-            <div class="project-info">
-                <h2 class="project-title">Multimedia Installation</h2>
-                <div class="project-category">Interactive / Art</div>
-            </div>
+            <img src="assets/Project 1.jpg" alt="Project 1">
+            <div class="project-info">Project One</div>
         </div>
 
         <div class="project-card">
-            <img src="https://via.placeholder.com/1920x1080/222" alt="Project 2">
-            <div class="project-info">
-                <h2 class="project-title">Light & Sound Show</h2>
-                <div class="project-category">Stage Design</div>
-            </div>
+            <img src="assets/Project 2.jpg" alt="Project 2">
+            <div class="project-info">Project Two</div>
         </div>
 
         <div class="project-card">
-            <img src="https://via.placeholder.com/1920x1080/333" alt="Project 3">
-            <div class="project-info">
-                <h2 class="project-title">Digital Sculpture</h2>
-                <div class="project-category">3D / Motion</div>
-            </div>
+            <img src="assets/Project 3.jpg" alt="Project 3">
+            <div class="project-info">Project Three</div>
         </div>
 
-        <div class="project-card">
-            <img src="https://via.placeholder.com/1920x1080/444" alt="Project 4">
-            <div class="project-info">
-                <h2 class="project-title">Future Vision</h2>
-                <div class="project-category">Exhibition</div>
-            </div>
-        </div>
     </main>
 
     <footer>
-        <p>© 2025 ALL RIGHTS RESERVED</p>
+        © 2026 ZAVOD495. ALL RIGHTS RESERVED.
     </footer>
 
 </body>
