@@ -8,80 +8,74 @@
         body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; }
         
         header { padding: 40px 20px; text-align: center; }
-        .logo-container { width: 100px; margin: 0 auto; display: block; transition: opacity 0.3s; }
+        .logo-container { width: 100px; margin: 0 auto; display: block; }
         .logo-container img { width: 100%; display: block; }
 
-        .content-container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; box-sizing: border-box; }
-
-        /* --- СТИЛИ СЛАЙДЕРА --- */
-        .slider-wrapper {
-            position: relative;
+        /* --- БЕСШОВНАЯ КАРУСЕЛЬ --- */
+        .carousel-wrapper {
             width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #111;
-            overflow: hidden;
-            margin-bottom: 40px;
+            overflow-x: auto; /* Позволяет листать свайпом на мобильных */
+            cursor: grab;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 50px;
         }
 
-        .slider-container {
+        /* Скрываем полосу прокрутки */
+        .carousel-wrapper::-webkit-scrollbar { display: none; }
+
+        .carousel-track {
             display: flex;
-            height: 100%;
-            transition: transform 0.6s cubic-bezier(0.2, 1, 0.3, 1);
+            width: max-content; /* Тянется по ширине всех фото */
         }
 
-        .slide {
-            min-width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .carousel-item {
+            height: 60vh; /* Высота — 60% от экрана */
+            flex-shrink: 0;
         }
 
-        .slide img {
-            width: 100%;
+        .carousel-item img {
             height: 100%;
-            object-fit: contain; /* Чтобы фото не обрезалось */
+            width: auto;
+            display: block;
+            pointer-events: none; /* Чтобы не мешать перетаскиванию */
         }
 
-        /* Кнопки навигации */
-        .slider-nav {
-            position: absolute;
-            top: 50%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            transform: translateY(-50%);
+        /* --- ОПИСАНИЕ ПОД КАРУСЕЛЬЮ --- */
+        .project-details { 
+            max-width: 900px; 
+            margin: 0 auto 100px; 
             padding: 0 20px;
-            box-sizing: border-box;
-            z-index: 10;
         }
 
-        .nav-btn {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            border: none;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            font-size: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
+        h1 { 
+            text-transform: uppercase; 
+            font-size: clamp(30px, 5vw, 48px); 
+            letter-spacing: 5px; 
+            margin-bottom: 30px; 
         }
 
-        .nav-btn:hover { background: rgba(255, 255, 255, 0.3); }
-
-        /* --- ДЕТАЛИ ПРОЕКТА --- */
-        .project-details { max-width: 800px; margin: 40px auto 100px; }
-        h1 { text-transform: uppercase; font-size: 32px; letter-spacing: 4px; margin-bottom: 20px; line-height: 1.2; }
-        .description { font-size: 14px; line-height: 1.6; opacity: 0.6; letter-spacing: 1px; margin-bottom: 40px; }
+        .description { 
+            font-size: 16px; 
+            line-height: 1.8; 
+            opacity: 0.7; 
+            letter-spacing: 0.5px; 
+            margin-bottom: 50px; 
+        }
         
-        .back-link { display: inline-block; text-decoration: none; color: #fff; text-transform: uppercase; font-size: 11px; letter-spacing: 2px; border-bottom: 1px solid #fff; padding-bottom: 5px; transition: opacity 0.3s; }
-        .back-link:hover { opacity: 0.5; }
+        .back-link { 
+            display: inline-block; 
+            text-decoration: none; 
+            color: #fff; 
+            text-transform: uppercase; 
+            font-size: 11px; 
+            letter-spacing: 2px; 
+            border-bottom: 1px solid rgba(255,255,255,0.3); 
+            padding-bottom: 5px; 
+            transition: 0.3s; 
+        }
+        .back-link:hover { border-bottom: 1px solid #fff; }
 
-        footer { padding: 100px 20px 60px; text-align: center; }
+        footer { padding: 60px 20px; text-align: center; }
         .footer-logo { width: 60px; margin: 0 auto 20px; opacity: 0.4; }
         .footer-logo img { width: 100%; display: block; }
         .copyright { font-size: 9px; opacity: 0.2; letter-spacing: 2px; text-transform: uppercase; }
@@ -95,28 +89,23 @@
         </a>
     </header>
 
-    <main class="content-container">
-        <div class="slider-wrapper">
-            <div class="slider-nav">
-                <button class="nav-btn" onclick="moveSlide(-1)">&#10094;</button>
-                <button class="nav-btn" onclick="moveSlide(1)">&#10095;</button>
-            </div>
-            <div class="slider-container" id="slider">
-                <div class="slide"><img src="assets/jumanji/jumanji1.JPG"></div>
-                <div class="slide"><img src="assets/jumanji/jumanji2.JPG"></div>
-                <div class="slide"><img src="assets/jumanji/jumanji3.JPG"></div>
-                <div class="slide"><img src="assets/jumanji/jumanji4.JPG"></div>
-                <div class="slide"><img src="assets/jumanji/jumanji5.JPG"></div>
-                <div class="slide"><img src="assets/jumanji/jumanji6.JPG"></div>
+    <main>
+        <div class="carousel-wrapper" id="carouselWrapper">
+            <div class="carousel-track">
+                <div class="carousel-item"><img src="assets/render.jumanji/renju1.jpg"></div>
+                <div class="carousel-item"><img src="assets/render.jumanji/renju2.jpg"></div>
+                <div class="carousel-item"><img src="assets/render.jumanji/renju3.jpg"></div>
+                <div class="carousel-item"><img src="assets/render.jumanji/renju4.jpg"></div>
+                <div class="carousel-item"><img src="assets/render.jumanji/renju5.jpg"></div>
             </div>
         </div>
 
         <section class="project-details">
             <h1>JUMANJI</h1>
             <div class="description">
-                Immersive set design project. Детальная проработка игрового пространства, вдохновленная атмосферой диких джунглей и приключений.
+                Иммерсивный проект, вдохновленный миром джунглей. Мы создали многослойное пространство, где каждый элемент — от текстуры стен до освещения — погружает посетителя в атмосферу опасного и захватывающего приключения. Тщательная проработка декораций позволила стереть грань между реальностью и декорацией.
             </div>
-            <a href="index.html" class="back-link">← Назад к проектам</a>
+            <a href="index.html" class="back-link">← Вернуться к списку</a>
         </section>
     </main>
 
@@ -128,24 +117,32 @@
     </footer>
 
     <script>
-        let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const sliderContainer = document.getElementById('slider');
+        // Скрипт для прокрутки мышкой (drag-to-scroll)
+        const slider = document.getElementById('carouselWrapper');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
 
-        function moveSlide(direction) {
-            currentSlide += direction;
-
-            // Зацикливание слайдера
-            if (currentSlide >= slides.length) {
-                currentSlide = 0;
-            }
-            if (currentSlide < 0) {
-                currentSlide = slides.length - 1;
-            }
-
-            const offset = -currentSlide * 100;
-            sliderContainer.style.transform = `translateX(${offset}%)`;
-        }
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener('mouseleave', () => {
+            isDown = false;
+        });
+        slider.addEventListener('mouseup', () => {
+            isDown = false;
+            slider.style.cursor = 'grab';
+        });
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2; // Скорость прокрутки
+            slider.scrollLeft = scrollLeft - walk;
+        });
     </script>
 
 </body>
