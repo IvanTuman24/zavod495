@@ -19,12 +19,12 @@
         .logo-container { width: 100px; margin: 0 auto 30px; }
         .logo-container img { width: 100%; height: auto; display: block; }
 
-        /* ФИЛЬТРЫ: Группировка по строкам */
+        /* ФИЛЬТРЫ */
         .filters-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 15px; /* Отступ между строками */
+            gap: 15px; 
             margin-bottom: 40px;
             text-transform: uppercase; 
             font-size: 11px; 
@@ -35,7 +35,7 @@
         .filter-row {
             display: flex;
             justify-content: center;
-            gap: 30px; /* Отступ между словами в строке */
+            gap: 30px; 
         }
 
         .filter-btn { 
@@ -78,7 +78,7 @@
         }
         .project-link:hover img { transform: scale(1.05); }
 
-        /* НАЗВАНИЕ ПРОЕКТА: ВСЕГДА ВИДИМО */
+        /* НАЗВАНИЕ ПРОЕКТА: ПОЯВЛЯЕТСЯ ТОЛЬКО ПРИ НАВЕДЕНИИ */
         .project-info {
             position: absolute; 
             bottom: 15px; 
@@ -90,9 +90,13 @@
             z-index: 10; 
             pointer-events: none;
             color: #fff; 
-            opacity: 1; 
+            
+            /* Скрываем текст */
+            opacity: 0; 
             mix-blend-mode: exclusion; 
-            transition: transform 0.5s ease; 
+            /* Добавляем плавность для прозрачности и небольшого движения */
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+            transform: translateY(10px); 
         }
         
         @media (min-width: 1024px) {
@@ -100,7 +104,12 @@
             .projects-grid { gap: 10px; padding: 10px; }
         }
 
-        .project-link:hover .project-info { transform: translateX(5px); }
+        /* Эффект при наведении на ссылку */
+        .project-link:hover .project-info { 
+            opacity: 1; 
+            transform: translateY(0); /* Возвращаем на место */
+        }
+
         .hidden { display: none; }
 
         /* ПОДВАЛ */
@@ -199,8 +208,6 @@
                 <div class="project-info">AGELESS</div>
             </div>
         </a>
-
-        
     </main>
 
     <footer>
