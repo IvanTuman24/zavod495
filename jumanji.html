@@ -7,40 +7,39 @@
     <style>
         body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; }
         
-        /* --- ШАПКА --- */
+        /* ЛОГОТИП В УГЛУ */
         header { 
             position: absolute; 
-            top: 40px; 
-            left: 40px; /* Отступ логотипа от краев */
+            top: 20px; 
+            left: 20px; 
             z-index: 100; 
         }
-        .logo { width: 80px; display: block; }
+        .logo { width: 70px; display: block; filter: brightness(2); }
 
-        /* --- ГЛАВНЫЙ ЭКРАН --- */
+        /* ГЛАВНЫЙ ЭКРАН */
         .hero-section {
             display: flex;
             height: 100vh;
             width: 100%;
             align-items: center;
-            justify-content: flex-start;
-            padding: 0 10% 0 0; /* Отступ справа для текстового блока */
+            justify-content: center;
+            padding: 0 5%;
             box-sizing: border-box;
         }
 
-        /* Вертикальное видео, прижатое к левой части центра */
+        /* КОНТЕЙНЕР ДЛЯ ВЕРТИКАЛЬНОГО ВИДЕО */
         .video-box {
-            flex: 1.5;
-            height: 85vh;
+            flex: 1;
+            height: 80vh; /* Высота как на макете */
             display: flex;
-            justify-content: flex-end; /* Двигаем видео к текстовому блоку */
-            padding-right: 60px;
+            justify-content: center;
+            align-items: center;
         }
 
         .video-wrapper {
             height: 100%;
-            aspect-ratio: 9 / 16; /* Строго вертикальные пропорции */
-            position: relative;
-            background: #111;
+            aspect-ratio: 9 / 16; /* Строго вертикальный формат */
+            background: #000;
         }
 
         .video-wrapper iframe {
@@ -49,74 +48,69 @@
             border: none;
         }
 
-        /* Контент справа */
+        /* ТЕКСТОВЫЙ БЛОК СПРАВА */
         .content-box {
             flex: 1;
+            padding-left: 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            text-align: left;
+            align-items: flex-start;
         }
 
         h1 { 
             text-transform: uppercase; 
-            font-size: clamp(40px, 6vw, 90px); 
-            letter-spacing: 12px; 
-            margin: 0 0 20px 0; 
-            line-height: 1;
+            font-size: 80px; /* Большой заголовок как на референсе */
+            letter-spacing: 15px; 
+            margin: 0 0 15px 0; 
+            font-weight: bold;
         }
 
         .description { 
-            font-size: 14px; 
-            line-height: 1.8; 
+            font-size: 13px; 
+            line-height: 1.6; 
             opacity: 0.5; 
-            max-width: 380px;
+            max-width: 350px;
             margin-bottom: 40px;
-            letter-spacing: 0.5px;
         }
 
-        /* --- КНОПКА ЗВУКА --- */
+        /* КНОПКА ВКЛЮЧИТЬ ЗВУК */
         .sound-btn {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 12px;
-            background: none;
-            border: 1px solid rgba(255,255,255,0.4);
-            color: #fff;
-            padding: 12px 20px;
+            gap: 10px;
+            background: #fff; /* Белая кнопка как на макете */
+            color: #000;
+            border: none;
+            padding: 12px 25px;
             cursor: pointer;
             text-transform: uppercase;
             font-size: 10px;
             letter-spacing: 2px;
+            font-weight: bold;
             transition: 0.3s;
-            width: fit-content;
         }
 
-        .sound-btn:hover {
-            background: #fff;
-            color: #000;
-        }
+        .sound-btn:hover { background: #ccc; }
+        .sound-btn svg { width: 14px; fill: currentColor; }
 
-        /* --- КАРУСЕЛЬ ФОТО --- */
+        /* КАРУСЕЛЬ (НИЖЕ) */
         .carousel-wrapper {
             width: 100%;
             overflow-x: auto;
             cursor: grab;
-            margin: 0 0 100px 0;
-            padding-bottom: 20px;
+            margin-bottom: 100px;
         }
         .carousel-wrapper::-webkit-scrollbar { display: none; }
         .carousel-track { display: flex; width: max-content; }
-        .carousel-item { height: 65vh; flex-shrink: 0; }
+        .carousel-item { height: 70vh; flex-shrink: 0; }
         .carousel-item img { height: 100%; width: auto; display: block; pointer-events: none; }
 
-        /* МОБИЛЬНАЯ ВЕРСИЯ */
         @media (max-width: 1024px) {
-            header { top: 20px; left: 20px; }
-            .hero-section { flex-direction: column; height: auto; padding: 100px 20px 40px; }
-            .video-box { width: 100%; height: 70vh; padding-right: 0; justify-content: center; margin-bottom: 40px; }
-            .content-box { align-items: center; text-align: center; }
-            .description { max-width: 100%; }
+            .hero-section { flex-direction: column; height: auto; padding-top: 80px; }
+            .content-box { padding: 40px 20px; align-items: center; text-align: center; }
+            h1 { font-size: 40px; }
+            .video-box { height: 60vh; }
         }
     </style>
 </head>
@@ -124,7 +118,7 @@
 
     <header>
         <a href="index.html">
-            <img src="assets/logo.shapka.png" alt="ZAVOD495" class="logo">
+            <img src="assets/logo.shapka.png" alt="ZAVOD" class="logo">
         </a>
     </header>
 
@@ -133,8 +127,8 @@
             <div class="video-box">
                 <div class="video-wrapper">
                     <iframe id="kinescopePlayer" 
-                        src="https://kinescope.io/embed/cNrDJ7nEv1zcvcenw69cKk?autoplay=1&loop=1&muted=1&background=1" 
-                        allow="autoplay; fullscreen" 
+                        src="https://kinescope.io/embed/cNrDJ7nEv1zcvcenw69cKk?autoplay=1&loop=1&muted=1&background=1&dnt=1" 
+                        allow="autoplay; fullscreen; picture-in-picture" 
                         frameborder="0">
                     </iframe>
                 </div>
@@ -147,7 +141,8 @@
                 </div>
                 
                 <button class="sound-btn" onclick="unmuteVideo()">
-                    <span>🔊</span> ВКЛЮЧИТЬ ЗВУК
+                    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                    ВКЛЮЧИТЬ ЗВУК
                 </button>
             </div>
         </section>
@@ -168,12 +163,11 @@
             const player = document.getElementById('kinescopePlayer');
             let currentSrc = player.src;
             if (currentSrc.includes('muted=1')) {
-                // Перезагружаем плеер со звуком и элементами управления
+                // Перезапуск видео без mute и режима background для активации звука
                 player.src = currentSrc.replace('muted=1', 'muted=0').replace('background=1', 'background=0');
             }
         }
 
-        // Скролл карусели мышкой
         const sw = document.getElementById('scrollWrap');
         let isDown = false; let startX; let scrollLeft;
         sw.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - sw.offsetLeft; scrollLeft = sw.scrollLeft; });
