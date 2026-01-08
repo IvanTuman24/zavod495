@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JUMANJI | ZAVOD495</title>
-    <script src="https://player.kinescope.io/latest/iframe.player.js"></script>
     <style>
         body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; }
         
@@ -22,7 +21,7 @@
         /* Видео по центру/чуть правее */
         .video-box {
             flex: 1.2;
-            height: 90vh;
+            height: 85vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -32,12 +31,13 @@
             height: 100%;
             aspect-ratio: 9 / 16;
             border: none;
+            background: #111; /* Цвет заглушки пока грузится видео */
         }
 
         /* Контент справа */
         .content-box {
             flex: 1;
-            padding-left: 40px;
+            padding-left: 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -55,41 +55,30 @@
             line-height: 1.6; 
             opacity: 0.5; 
             max-width: 400px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
-        /* --- ФЕЙДЕР ГРОМКОСТИ --- */
-        .volume-wrap {
-            display: flex;
+        /* --- КНОПКА ЗВУКА --- */
+        .sound-btn {
+            display: inline-flex;
             align-items: center;
             gap: 15px;
-        }
-
-        .volume-icon { font-size: 18px; opacity: 0.8; cursor: pointer; }
-
-        input[type=range] {
-            -webkit-appearance: none;
-            width: 250px;
-            background: transparent;
-        }
-
-        input[type=range]::-webkit-slider-runnable-track {
-            width: 100%;
-            height: 2px;
-            background: rgba(255,255,255,0.2);
-        }
-
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            height: 12px;
-            width: 12px;
-            border-radius: 50%;
-            background: #fff;
+            background: none;
+            border: 1px solid rgba(255,255,255,0.3);
+            color: #fff;
+            padding: 12px 25px;
             cursor: pointer;
-            margin-top: -5px;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 3px;
+            transition: 0.3s;
+            width: fit-content;
         }
 
-        .vol-label { font-size: 10px; letter-spacing: 3px; opacity: 0.4; text-transform: uppercase; }
+        .sound-btn:hover {
+            background: #fff;
+            color: #000;
+        }
 
         /* --- КАРУСЕЛЬ --- */
         .carousel-wrapper {
@@ -97,19 +86,20 @@
             overflow-x: auto;
             cursor: grab;
             margin: 50px 0 100px;
+            -webkit-overflow-scrolling: touch;
         }
         .carousel-wrapper::-webkit-scrollbar { display: none; }
         .carousel-track { display: flex; width: max-content; }
         .carousel-item { height: 60vh; flex-shrink: 0; }
-        .carousel-item img { height: 100%; width: auto; display: block; }
+        .carousel-item img { height: 100%; width: auto; display: block; pointer-events: none; }
 
         header { padding: 30px; position: absolute; top: 0; width: 100%; z-index: 10; }
         .logo { width: 80px; }
 
         @media (max-width: 1024px) {
             .hero-section { flex-direction: column; height: auto; padding-top: 100px; }
-            .content-box { padding: 40px 0; align-items: center; text-align: center; }
-            input[type=range] { width: 150px; }
+            .content-box { padding: 40px 20px; align-items: center; text-align: center; }
+            .video-box { height: 70vh; }
         }
     </style>
 </head>
@@ -122,7 +112,11 @@
     <main>
         <section class="hero-section">
             <div class="video-box">
-                <div id="kinescope-player"></div>
+                <iframe id="kinescopePlayer" 
+                    src="https://kinescope.io/embed/cNrDJ7nEv1zcvcenw69cKk?autoplay=1&loop=1&muted=1&background=1" 
+                    allow="autoplay; fullscreen" 
+                    frameborder="0">
+                </iframe>
             </div>
 
             <div class="content-box">
@@ -131,11 +125,9 @@
                     Вертикальный иммерсивный опыт. Тщательная проработка декораций и атмосферы диких джунглей, перенесенная в цифровой и физический формат.
                 </div>
                 
-                <div class="volume-wrap">
-                    <span class="volume-icon" id="muteToggle">🔊</span>
-                    <input type="range" id="volRange" min="0" max="100" value="0">
-                    <span class="vol-label">Volume</span>
-                </div>
+                <button class="sound-btn" onclick="unmuteVideo()">
+                    <span id="speakerIcon">🔊</span> ВКЛЮЧИТЬ ЗВУК
+                </button>
             </div>
         </section>
 
@@ -151,40 +143,19 @@
     </main>
 
     <script>
-        // Инициализация плеера через API для прямого управления звуком
-        const playerElement = document.getElementById('kinescope-player');
-        let player;
-
-        Kinescope.IframePlayer.create('kinescope-player', {
-            url: 'https://kinescope.io/cNrDJ7nEv1zcvcenw69cKk',
-            size: { width: '100%', height: '100%' },
-            autoPlay: true,
-            loop: true,
-            muted: true, // Начинаем без звука (требование браузеров)
-            playsinline: true
-        }).then(p => {
-            player = p;
-        });
-
-        const volRange = document.getElementById('volRange');
-        const muteToggle = document.getElementById('muteToggle');
-
-        // Управление громкостью
-        volRange.addEventListener('input', (e) => {
-            const val = e.target.value / 100;
-            if (player) {
-                if (val > 0) {
-                    player.setMuted(false);
-                    player.setVolume(val);
-                    muteToggle.innerText = '🔊';
-                } else {
-                    player.setMuted(true);
-                    muteToggle.innerText = '🔇';
-                }
+        // Функция включения звука через перезагрузку src (самый стабильный метод)
+        function unmuteVideo() {
+            const player = document.getElementById('kinescopePlayer');
+            let currentSrc = player.src;
+            
+            if (currentSrc.includes('muted=1')) {
+                // Убираем muted и фоновый режим, чтобы звук появился
+                player.src = currentSrc.replace('muted=1', 'muted=0').replace('background=1', 'background=0');
+                document.getElementById('speakerIcon').innerText = '🔈';
             }
-        });
+        }
 
-        // Карусель (скролл мышкой)
+        // Прокрутка карусели мышкой
         const sw = document.getElementById('scrollWrap');
         let isDown = false; let startX; let scrollLeft;
         sw.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - sw.offsetLeft; scrollLeft = sw.scrollLeft; });
