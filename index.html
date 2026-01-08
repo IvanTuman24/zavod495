@@ -14,8 +14,44 @@
             overflow-x: hidden; 
         }
 
+        /* --- АНИМАЦИЯ ПРОВОЛОКИ --- */
+        .wire-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 600px; /* Область шапки */
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none; /* Чтобы не мешала кликам по фильтрам */
+            opacity: 0.2; /* Полупрозрачность */
+        }
+
+        .wire-animation {
+            position: absolute;
+            width: 200%; /* Большой размер для движения */
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: url('assets/wire.png') repeat;
+            background-size: contain;
+            filter: invert(1); /* Делает проволоку белой */
+            animation: drift 40s linear infinite;
+        }
+
+        @keyframes drift {
+            0% { transform: rotate(0deg) translate(0, 0); }
+            50% { transform: rotate(5deg) translate(-2%, -5%); }
+            100% { transform: rotate(0deg) translate(0, 0); }
+        }
+
         /* ШАПКА */
-        header { padding: 40px 10px; text-align: center; }
+        header { 
+            position: relative; 
+            padding: 40px 10px; 
+            text-align: center; 
+            z-index: 10; /* Поверх проволоки */
+        }
         .logo-container { width: 100px; margin: 0 auto 30px; }
         .logo-container img { width: 100%; height: auto; display: block; }
 
@@ -53,10 +89,13 @@
 
         /* СЕТКА ПРОЕКТОВ */
         .projects-grid {
+            position: relative;
+            z-index: 10;
             display: grid; 
             grid-template-columns: repeat(2, 1fr);
             gap: 5px; 
             padding: 5px;
+            background: #000; /* Перекрывает проволоку, когда прокручиваем вниз */
         }
 
         .project-link { text-decoration: none; color: inherit; display: block; position: relative; }
@@ -78,7 +117,6 @@
         }
         .project-link:hover img { transform: scale(1.05); }
 
-        /* НАЗВАНИЕ ПРОЕКТА: ПОЯВЛЯЕТСЯ ТОЛЬКО ПРИ НАВЕДЕНИИ */
         .project-info {
             position: absolute; 
             bottom: 15px; 
@@ -90,11 +128,8 @@
             z-index: 10; 
             pointer-events: none;
             color: #fff; 
-            
-            /* Скрываем текст */
             opacity: 0; 
             mix-blend-mode: exclusion; 
-            /* Добавляем плавность для прозрачности и небольшого движения */
             transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
             transform: translateY(10px); 
         }
@@ -104,15 +139,13 @@
             .projects-grid { gap: 10px; padding: 10px; }
         }
 
-        /* Эффект при наведении на ссылку */
         .project-link:hover .project-info { 
             opacity: 1; 
-            transform: translateY(0); /* Возвращаем на место */
+            transform: translateY(0); 
         }
 
         .hidden { display: none; }
 
-        /* ПОДВАЛ */
         footer { padding: 60px 20px; text-align: center; }
         .footer-logo { width: 60px; margin: 0 auto 15px; opacity: 0.5; transition: 0.3s; }
         .footer-logo img { width: 100%; display: block; }
@@ -120,6 +153,10 @@
     </style>
 </head>
 <body>
+
+    <div class="wire-container">
+        <div class="wire-animation"></div>
+    </div>
 
     <header>
         <div class="logo-container">
@@ -149,129 +186,7 @@
             </div>
         </a>
 
-        <a href="fier.html" class="project-link" data-category="set">
-             <div class="project-card">
-                <div class="video-overlay"></div>
-                <iframe src="https://kinescope.io/embed/7CRT8agyxgJPvzkUiZfBnN?autoplay=1&loop=1&muted=1&background=1" frameborder="0" allowfullscreen></iframe>
-                <div class="project-info">FIER</div>
-            </div>
-        </a>
-
-        <a href="demenor.html" class="project-link" data-category="install">
-            <div class="project-card">
-                <div class="video-overlay"></div>
-                <iframe src="https://kinescope.io/embed/jxW5JmW3sMFSreLkvm9cjE?autoplay=1&loop=1&muted=1&background=1" frameborder="0" allowfullscreen></iframe>
-                <div class="project-info">DEMENOR</div>
-            </div>
-        </a>
-
-        <a href="yandexbox.html" class="project-link" data-category="promo">
-            <div class="project-card">
-                <img src="assets/yandexBOX/yandexBOX1.jpg" alt="yandexBOX">
-                <div class="project-info">yandexBOX</div>
-            </div>
-        </a>
-
-        <a href="точка-g.html" class="project-link" data-category="space">
-            <div class="project-card">
-                <img src="assets/tochkag/tochkag.jpg" alt="Музей эротики Точка G">
-                <div class="project-info">МУЗЕЙ ЭРОТИКИ ТОЧКА G</div>
-            </div>
-        </a>
-
-        <a href="sibur.html" class="project-link" data-category="promo">
-            <div class="project-card">
-                <div class="video-overlay"></div>
-                <iframe src="https://kinescope.io/embed/4r5GHKyS8E6S6ecaC6rpJi?autoplay=1&loop=1&muted=1&background=1" frameborder="0" allowfullscreen></iframe>
-                <div class="project-info">УМНАЯ СТАНЦИЯ СИБУР</div>
-            </div>
-        </a>
-
-        <a href="umlaut-zhig.html" class="project-link" data-category="promo">
-            <div class="project-card">
-                <div class="video-overlay"></div>
-                <iframe src="https://kinescope.io/embed/2U8G3GgH7EaM1at9L8LBq1?autoplay=1&loop=1&muted=1&background=1" frameborder="0" allowfullscreen></iframe>
-                <div class="project-info">UMLAUT ZHIG</div>
-            </div>
-        </a>
-
-        <a href="zemlya.html" class="project-link" data-category="set">
-            <div class="project-card">
-                <div class="video-overlay"></div>
-                <iframe src="https://kinescope.io/embed/dj32YKF57kkpCziXHUuQoA?autoplay=1&loop=1&muted=1&background=1" frameborder="0" allowfullscreen></iframe>
-                <div class="project-info">Три дня дождя, Тося Чайкина — Земля (OST «Амура»)</div>
-            </div>
-        </a>
-
-         <a href="asiamania.html" class="project-link" data-category="space">
-            <div class="project-card">
-                <img src="assets/asiamania/asiamania1.jpg" alt="ASIAMANIA">
-                <div class="project-info">ASIAMANIA</div>
-            </div>
-        </a>
-        
-          <a href="underdog.html" class="project-link" data-category="set">
-            <div class="project-card">
-                <img src="assets/underdog/underdog1.JPG" alt="Underdog">
-                <div class="project-info">UNDERDOG</div>
-            </div>
-        </a>
-
-
-        <a href="attraction.html" class="project-link" data-category="install">
-            <div class="project-card">
-                <div class="video-overlay"></div>
-                <iframe src="https://kinescope.io/embed/uQitXZcF7sGQRuBmmvQVKY?autoplay=1&loop=1&muted=1&background=1" frameborder="0" allowfullscreen></iframe>
-                <div class="project-info">ATTRACTION</div>
-            </div>
-        </a>
-
-        <a href="ageless.html" class="project-link" data-category="promo">
-            <div class="project-card">
-                <img src="assets/ageless/ageless1.jpg" alt="AGELESS">
-                <div class="project-info">AGELESS</div>
-            </div>
-        </a>
-
-        <a href="umlaut-kids.html" class="project-link" data-category="space">
-            <div class="project-card">
-                <div class="video-overlay"></div>
-                <iframe src="https://kinescope.io/embed/6tyWVbmrg9SYUJrbRydJsP?autoplay=1&loop=1&muted=1&background=1" frameborder="0" allowfullscreen></iframe>
-                <div class="project-info">UMLAUT KIDS</div>
-            </div>
-        </a>
-
-        <a href="bounce.html" class="project-link" data-category="space">
-            <div class="project-card">
-                <div class="video-overlay"></div>
-                <iframe src="https://kinescope.io/embed/pGW3ePwsVDPaSm5LyCwFYo?autoplay=1&loop=1&muted=1&background=1" frameborder="0" allowfullscreen></iframe>
-                <div class="project-info">BOUNCE</div>
-            </div>
-        </a>
-
-        <a href="sexofon.html" class="project-link" data-category="install">
-            <div class="project-card">
-                <img src="assets/sex/sex1.jpg" alt="Сексофон">
-                <div class="project-info">СЕКСОФОН</div>
-            </div>
-        </a>
-
-        <a href="la-virgen.html" class="project-link" data-category="install">
-            <div class="project-card">
-                <img src="assets/La Virgen/la1.JPG" alt="La Virgen">
-                <div class="project-info">LA VIRGEN</div>
-            </div>
-        </a>
-
-        <a href="cherta.html" class="project-link" data-category="space">
-            <div class="project-card">
-                <img src="assets/cherta/cherta1.jpg" alt="Cherta">
-                <div class="project-info">CHERTA</div>
-            </div>
-        </a>
-
-        
-    </main>
+        </main>
 
     <footer>
         <div class="footer-logo">
