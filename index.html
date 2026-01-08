@@ -35,7 +35,7 @@
         .filter-row {
             display: flex;
             justify-content: center;
-            gap: 30px; 
+            gap: 20px; 
         }
 
         .filter-btn { 
@@ -51,12 +51,22 @@
             border-bottom: 1px solid #fff; 
         }
 
-        /* СЕТКА ПРОЕКТОВ */
+        /* СЕТКА ПРОЕКТОВ (МОБИЛЬНАЯ ВЕРСИЯ ПО УМОЛЧАНИЮ) */
         .projects-grid {
             display: grid; 
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr; /* Один проект в ряд */
             gap: 5px; 
             padding: 5px;
+        }
+
+        /* ПК ВЕРСИЯ (ОТ 1024px) */
+        @media (min-width: 1024px) {
+            .projects-grid { 
+                grid-template-columns: repeat(2, 1fr); /* Два проекта в ряд */
+                gap: 10px; 
+                padding: 10px; 
+            }
+            .project-info { font-size: 40px; bottom: 25px; left: 25px; }
         }
 
         .project-link { text-decoration: none; color: inherit; display: block; position: relative; }
@@ -78,13 +88,13 @@
         }
         .project-link:hover img { transform: scale(1.05); }
 
-        /* НАЗВАНИЕ ПРОЕКТА: ПОЯВЛЯЕТСЯ ТОЛЬКО ПРИ НАВЕДЕНИИ */
+        /* НАЗВАНИЕ ПРОЕКТА */
         .project-info {
             position: absolute; 
             bottom: 15px; 
             left: 15px;
             text-transform: uppercase; 
-            font-size: 2vw; 
+            font-size: 5vw; /* Увеличил для мобильных */
             letter-spacing: 1px;
             font-weight: bold; 
             z-index: 10; 
@@ -96,11 +106,7 @@
             transform: translateY(10px); 
         }
         
-        @media (min-width: 1024px) {
-            .project-info { font-size: 40px; bottom: 25px; left: 25px; }
-            .projects-grid { gap: 10px; padding: 10px; }
-        }
-
+        /* Эффект при наведении (и тапе на мобильных) */
         .project-link:hover .project-info { 
             opacity: 1; 
             transform: translateY(0); 
@@ -170,7 +176,7 @@
 
         <a href="точка-g.html" class="project-link" data-category="space">
             <div class="project-card">
-                <img src="assets/tochkag/tochkag.jpg" alt="Музей эротики Точка G">
+                <img src="assets/tochkag/tochkag.jpg" alt="Точка G">
                 <div class="project-info">МУЗЕЙ ЭРОТИКИ ТОЧКА G</div>
             </div>
         </a>
@@ -195,11 +201,11 @@
             <div class="project-card">
                 <div class="video-overlay"></div>
                 <iframe src="https://kinescope.io/embed/dj32YKF57kkpCziXHUuQoA?autoplay=1&loop=1&muted=1&background=1" frameborder="0" allowfullscreen></iframe>
-                <div class="project-info">Три дня дождя, Тося Чайкина — Земля (OST «Амура»)</div>
+                <div class="project-info">Три дня дождя, Тося Чайкина — Земля</div>
             </div>
         </a>
 
-        <a href="asiamania.html" class="project-link" data-category="space">
+         <a href="asiamania.html" class="project-link" data-category="space">
             <div class="project-card">
                 <img src="assets/asiamania/asiamania1.jpg" alt="ASIAMANIA">
                 <div class="project-info">ASIAMANIA</div>
