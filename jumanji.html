@@ -7,99 +7,109 @@
     <style>
         body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; }
         
-        /* --- ВИДЕО ОБЛОЖКА --- */
-        .video-hero {
-            position: relative;
-            width: 100%;
-            height: 80vh; /* Видео занимает 80% высоты экрана */
-            background: #000;
-            overflow: hidden;
-        }
-
-        .video-hero iframe {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100vw;
-            height: 56.25vw; /* Пропорции 16:9 */
-            min-height: 80vh;
-            min-width: 142.22vh; /* Чтобы видео всегда закрывало контейнер */
-            transform: translate(-50%, -50%);
-            pointer-events: none; /* Чтобы клики проходили сквозь iframe к кнопке звука */
-        }
-
-        /* Кнопка звука поверх видео */
-        .sound-toggle {
-            position: absolute;
-            bottom: 30px;
-            right: 30px;
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
+        /* --- ВЕРХНЯЯ СЕКЦИЯ: ВИДЕО + ИНФО --- */
+        .hero-section {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
+            height: 100vh;
+            width: 100%;
+            background: #000;
+            position: relative;
         }
-        .sound-toggle:hover { background: rgba(255, 255, 255, 0.2); }
 
-        /* --- ОПИСАНИЕ ПРОЕКТА --- */
-        .project-header {
-            max-width: 900px;
-            margin: 60px auto;
-            padding: 0 20px;
-            text-align: left;
+        /* Видео смещено вправо, но в рамках безопасной зоны */
+        .video-container {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: flex-end; /* Смещаем видео к правой границе его контейнера */
+            align-items: center;
+            padding-right: 5%; /* Небольшой отступ от края (безопасная зона) */
+        }
+
+        .video-container iframe {
+            height: 90vh; /* Вертикальное видео на почти всю высоту */
+            aspect-ratio: 9 / 16; /* Пропорции смартфона */
+            border: 0;
+            box-shadow: 0 0 50px rgba(255,255,255,0.05);
+        }
+
+        /* Текст слева */
+        .info-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 10%;
+            z-index: 10;
         }
 
         h1 { 
             text-transform: uppercase; 
-            font-size: clamp(32px, 6vw, 60px); 
-            letter-spacing: 8px; 
-            margin-bottom: 20px; 
+            font-size: clamp(40px, 8vw, 80px); 
+            letter-spacing: 10px; 
+            margin: 0 0 20px 0; 
+            line-height: 1;
         }
 
         .description { 
             font-size: 16px; 
             line-height: 1.8; 
-            opacity: 0.7; 
-            max-width: 700px;
+            opacity: 0.6; 
+            max-width: 450px;
+            margin-bottom: 40px;
         }
 
-        /* --- БЕСШОВНАЯ КАРУСЕЛЬ --- */
+        /* --- БОЛЬШОЙ ФЕЙДЕР ГРОМКОСТИ --- */
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #volumeFader {
+            -webkit-appearance: none;
+            width: 200px;
+            height: 2px;
+            background: rgba(255,255,255,0.2);
+            outline: none;
+            cursor: pointer;
+        }
+
+        #volumeFader::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 15px;
+            height: 15px;
+            background: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .volume-icon { font-size: 20px; cursor: pointer; }
+
+        /* --- КАРУСЕЛЬ (НИЖЕ) --- */
         .carousel-wrapper {
             width: 100%;
             overflow-x: auto;
             cursor: grab;
-            margin-bottom: 80px;
+            margin: 100px 0;
             -webkit-overflow-scrolling: touch;
         }
         .carousel-wrapper::-webkit-scrollbar { display: none; }
-
         .carousel-track { display: flex; width: max-content; }
-
-        .carousel-item { height: 50vh; flex-shrink: 0; }
+        .carousel-item { height: 60vh; flex-shrink: 0; }
         .carousel-item img { height: 100%; width: auto; display: block; pointer-events: none; }
 
-        /* ЛОГО И НАЗАД */
-        header { padding: 30px; position: absolute; top: 0; width: 100%; z-index: 100; box-sizing: border-box; }
-        .logo-container { width: 80px; display: block; }
-        .logo-container img { width: 100%; }
-
-        .back-link-container { padding: 0 20px 100px; text-align: center; }
-        .back-link { 
-            text-decoration: none; color: #fff; text-transform: uppercase; 
-            font-size: 11px; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.3);
-            padding-bottom: 5px;
+        /* АДАПТИВНОСТЬ ДЛЯ МОБИЛОК */
+        @media (max-width: 1024px) {
+            .hero-section { flex-direction: column; height: auto; }
+            .info-container { order: 2; padding: 40px 20px; }
+            .video-container { order: 1; justify-content: center; padding: 20px 0; }
+            .video-container iframe { width: 90%; height: auto; aspect-ratio: 9/16; }
         }
 
-        footer { padding: 60px 20px; text-align: center; opacity: 0.5; }
-        .footer-logo { width: 50px; margin: 0 auto 15px; }
+        header { padding: 30px; position: absolute; top: 0; width: 100%; z-index: 100; }
+        .logo-container { width: 80px; display: block; }
+        .logo-container img { width: 100%; }
     </style>
 </head>
 <body>
@@ -111,18 +121,25 @@
     </header>
 
     <main>
-        <section class="video-hero">
-            <iframe id="heroVideo" src="https://kinescope.io/embed/cNrDJ7nEv1zcvcenw69cKk?autoplay=1&loop=1&muted=1&background=1" frameborder="0" allow="autoplay; fullscreen"></iframe>
-            
-            <button class="sound-toggle" id="muteBtn" onclick="toggleSound()">
-                <span id="soundIcon">🔊</span>
-            </button>
-        </section>
+        <section class="hero-section">
+            <div class="info-container">
+                <h1>JUMANJI</h1>
+                <div class="description">
+                    Вертикальный иммерсивный опыт. Тщательная проработка декораций и атмосферы диких джунглей, перенесенная в цифровой и физический формат.
+                </div>
+                
+                <div class="volume-control">
+                    <span class="volume-icon" onclick="toggleMute()">🔊</span>
+                    <input type="range" id="volumeFader" min="0" max="1" step="0.1" value="0">
+                    <span style="font-size: 10px; letter-spacing: 2px; opacity: 0.5;">VOLUME</span>
+                </div>
+            </div>
 
-        <section class="project-header">
-            <h1>JUMANJI</h1>
-            <div class="description">
-                Иммерсивный проект, вдохновленный миром джунглей. Мы создали многослойное пространство, где каждый элемент — от текстуры стен до освещения — погружает посетителя в атмосферу опасного и захватывающего приключения.
+            <div class="video-container">
+                <iframe id="heroVideo" 
+                    src="https://kinescope.io/embed/cNrDJ7nEv1zcvcenw69cKk?autoplay=1&loop=1&muted=1&background=1" 
+                    allow="autoplay; fullscreen">
+                </iframe>
             </div>
         </section>
 
@@ -135,49 +152,43 @@
                 <div class="carousel-item"><img src="assets/render.jumanji/renju5.jpg"></div>
             </div>
         </div>
-
-        <div class="back-link-container">
-            <a href="index.html" class="back-link">← Все проекты</a>
-        </div>
     </main>
 
-    <footer>
-        <div class="footer-logo"><img src="assets/logo.podval.png"></div>
-        <div class="copyright">© 2026 ZAVOD495</div>
-    </footer>
-
     <script>
-        // Функция включения/выключения звука для Kinescope
-        function toggleSound() {
-            const iframe = document.getElementById('heroVideo');
-            const icon = document.getElementById('soundIcon');
+        const video = document.getElementById('heroVideo');
+        const fader = document.getElementById('volumeFader');
+
+        // Логика звука: При изменении ползунка перезагружаем iframe со звуком
+        // (К сожалению, iframe не всегда позволяет менять звук "на лету" без API)
+        fader.addEventListener('input', function() {
+            let volume = fader.value;
+            let currentSrc = video.src;
             
-            // Для Kinescope переключение звука часто идет через смену параметра в src или через их API
-            // Самый простой способ без сложного API — пересоздать src с muted=0
-            let currentSrc = iframe.src;
-            if (currentSrc.includes('muted=1')) {
-                iframe.src = currentSrc.replace('muted=1', 'muted=0');
-                icon.innerText = '🔈';
+            if (volume > 0) {
+                // Если сдвинули ползунок — включаем звук через параметр
+                if (currentSrc.includes('muted=1')) {
+                    video.src = currentSrc.replace('muted=1', 'muted=0');
+                }
+                fader.style.opacity = "1";
             } else {
-                iframe.src = currentSrc.replace('muted=0', 'muted=1');
-                icon.innerText = '🔊';
+                if (currentSrc.includes('muted=0')) {
+                    video.src = currentSrc.replace('muted=0', 'muted=1');
+                }
+                fader.style.opacity = "0.5";
             }
+        });
+
+        function toggleMute() {
+            fader.value = fader.value > 0 ? 0 : 1;
+            fader.dispatchEvent(new Event('input'));
         }
 
         // Drag-to-scroll для карусели
         const slider = document.getElementById('carouselWrapper');
-        let isDown = false;
-        let startX;
-        let scrollLeft;
-
-        slider.addEventListener('mousedown', (e) => {
-            isDown = true;
-            slider.style.cursor = 'grabbing';
-            startX = e.pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-        });
+        let isDown = false; let startX; let scrollLeft;
+        slider.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft; });
         slider.addEventListener('mouseleave', () => { isDown = false; });
-        slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'grab'; });
+        slider.addEventListener('mouseup', () => { isDown = false; });
         slider.addEventListener('mousemove', (e) => {
             if (!isDown) return;
             e.preventDefault();
