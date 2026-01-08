@@ -7,40 +7,55 @@
     <style>
         body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; }
         
+        /* --- ШАПКА --- */
+        header { 
+            position: absolute; 
+            top: 40px; 
+            left: 40px; /* Отступ логотипа от краев */
+            z-index: 100; 
+        }
+        .logo { width: 80px; display: block; }
+
         /* --- ГЛАВНЫЙ ЭКРАН --- */
         .hero-section {
             display: flex;
             height: 100vh;
             width: 100%;
             align-items: center;
-            justify-content: center;
-            padding: 0 5%;
+            justify-content: flex-start;
+            padding: 0 10% 0 0; /* Отступ справа для текстового блока */
             box-sizing: border-box;
         }
 
-        /* Видео по центру/чуть правее */
+        /* Вертикальное видео, прижатое к левой части центра */
         .video-box {
-            flex: 1.2;
+            flex: 1.5;
             height: 85vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            justify-content: flex-end; /* Двигаем видео к текстовому блоку */
+            padding-right: 60px;
         }
 
-        .video-box iframe {
+        .video-wrapper {
             height: 100%;
-            aspect-ratio: 9 / 16;
+            aspect-ratio: 9 / 16; /* Строго вертикальные пропорции */
+            position: relative;
+            background: #111;
+        }
+
+        .video-wrapper iframe {
+            width: 100%;
+            height: 100%;
             border: none;
-            background: #111; /* Цвет заглушки пока грузится видео */
         }
 
         /* Контент справа */
         .content-box {
             flex: 1;
-            padding-left: 60px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            text-align: left;
         }
 
         h1 { 
@@ -48,29 +63,31 @@
             font-size: clamp(40px, 6vw, 90px); 
             letter-spacing: 12px; 
             margin: 0 0 20px 0; 
+            line-height: 1;
         }
 
         .description { 
             font-size: 14px; 
-            line-height: 1.6; 
+            line-height: 1.8; 
             opacity: 0.5; 
-            max-width: 400px;
+            max-width: 380px;
             margin-bottom: 40px;
+            letter-spacing: 0.5px;
         }
 
         /* --- КНОПКА ЗВУКА --- */
         .sound-btn {
             display: inline-flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             background: none;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.4);
             color: #fff;
-            padding: 12px 25px;
+            padding: 12px 20px;
             cursor: pointer;
             text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 3px;
+            font-size: 10px;
+            letter-spacing: 2px;
             transition: 0.3s;
             width: fit-content;
         }
@@ -80,43 +97,47 @@
             color: #000;
         }
 
-        /* --- КАРУСЕЛЬ --- */
+        /* --- КАРУСЕЛЬ ФОТО --- */
         .carousel-wrapper {
             width: 100%;
             overflow-x: auto;
             cursor: grab;
-            margin: 50px 0 100px;
-            -webkit-overflow-scrolling: touch;
+            margin: 0 0 100px 0;
+            padding-bottom: 20px;
         }
         .carousel-wrapper::-webkit-scrollbar { display: none; }
         .carousel-track { display: flex; width: max-content; }
-        .carousel-item { height: 60vh; flex-shrink: 0; }
+        .carousel-item { height: 65vh; flex-shrink: 0; }
         .carousel-item img { height: 100%; width: auto; display: block; pointer-events: none; }
 
-        header { padding: 30px; position: absolute; top: 0; width: 100%; z-index: 10; }
-        .logo { width: 80px; }
-
+        /* МОБИЛЬНАЯ ВЕРСИЯ */
         @media (max-width: 1024px) {
-            .hero-section { flex-direction: column; height: auto; padding-top: 100px; }
-            .content-box { padding: 40px 20px; align-items: center; text-align: center; }
-            .video-box { height: 70vh; }
+            header { top: 20px; left: 20px; }
+            .hero-section { flex-direction: column; height: auto; padding: 100px 20px 40px; }
+            .video-box { width: 100%; height: 70vh; padding-right: 0; justify-content: center; margin-bottom: 40px; }
+            .content-box { align-items: center; text-align: center; }
+            .description { max-width: 100%; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="index.html"><img src="assets/logo.shapka.png" class="logo"></a>
+        <a href="index.html">
+            <img src="assets/logo.shapka.png" alt="ZAVOD495" class="logo">
+        </a>
     </header>
 
     <main>
         <section class="hero-section">
             <div class="video-box">
-                <iframe id="kinescopePlayer" 
-                    src="https://kinescope.io/embed/cNrDJ7nEv1zcvcenw69cKk?autoplay=1&loop=1&muted=1&background=1" 
-                    allow="autoplay; fullscreen" 
-                    frameborder="0">
-                </iframe>
+                <div class="video-wrapper">
+                    <iframe id="kinescopePlayer" 
+                        src="https://kinescope.io/embed/cNrDJ7nEv1zcvcenw69cKk?autoplay=1&loop=1&muted=1&background=1" 
+                        allow="autoplay; fullscreen" 
+                        frameborder="0">
+                    </iframe>
+                </div>
             </div>
 
             <div class="content-box">
@@ -126,7 +147,7 @@
                 </div>
                 
                 <button class="sound-btn" onclick="unmuteVideo()">
-                    <span id="speakerIcon">🔊</span> ВКЛЮЧИТЬ ЗВУК
+                    <span>🔊</span> ВКЛЮЧИТЬ ЗВУК
                 </button>
             </div>
         </section>
@@ -143,19 +164,16 @@
     </main>
 
     <script>
-        // Функция включения звука через перезагрузку src (самый стабильный метод)
         function unmuteVideo() {
             const player = document.getElementById('kinescopePlayer');
             let currentSrc = player.src;
-            
             if (currentSrc.includes('muted=1')) {
-                // Убираем muted и фоновый режим, чтобы звук появился
+                // Перезагружаем плеер со звуком и элементами управления
                 player.src = currentSrc.replace('muted=1', 'muted=0').replace('background=1', 'background=0');
-                document.getElementById('speakerIcon').innerText = '🔈';
             }
         }
 
-        // Прокрутка карусели мышкой
+        // Скролл карусели мышкой
         const sw = document.getElementById('scrollWrap');
         let isDown = false; let startX; let scrollLeft;
         sw.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - sw.offsetLeft; scrollLeft = sw.scrollLeft; });
