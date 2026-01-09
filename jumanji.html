@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JUMANJI | ZAVOD495</title>
+    <title>JUMANJI | 3D SHOWCASE</title>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; text-align: center; }
+        body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; text-align: center; overflow-x: hidden; }
         
-        /* ШАПКА: ЛОГО И ЗАГОЛОВОК ПО ЦЕНТРУ */
-        header { padding: 40px 20px 20px; }
-        .logo-top { width: 60px; margin-bottom: 10px; opacity: 0.8; }
+        /* ЛОГО И ЗАГОЛОВОК ПО ЦЕНТРУ */
+        header { padding: 50px 20px 20px; }
+        .logo-top { width: 60px; margin-bottom: 15px; opacity: 0.9; }
         h1 { 
             font-size: clamp(40px, 10vw, 100px); 
             text-transform: uppercase; 
@@ -18,59 +19,63 @@
             font-weight: bold; 
         }
 
-        /* БЛОК ВИДЕО */
-        .video-section {
+        /* КОНТЕЙНЕР 3D МОДЕЛИ (ЗЕЛЕНАЯ РАМКА) */
+        .viewer-section {
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 20px 5%;
         }
 
-        .video-container {
+        .model-container {
             width: 100%;
             max-width: 1200px;
-            aspect-ratio: 16 / 9; /* Горизонтальное превью по схеме */
-            border: 1px solid #14a44d; /* Зеленая рамка как на схеме */
-            background: #000;
-            position: relative;
-            overflow: hidden;
+            height: 65vh;
+            border: 1px solid #14a44d; /* Твоя зеленая рамка */
+            background: radial-gradient(circle, #0a0a0a 0%, #000 100%);
             margin-bottom: 25px;
+            position: relative;
         }
 
-        .video-container iframe { width: 100%; height: 100%; border: none; }
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            --poster-color: transparent;
+        }
 
-        /* КНОПКА ПЛЕЙ И ОПИСАНИЕ */
+        /* КНОПКА И ОПИСАНИЕ */
         .play-btn {
             background: none;
             border: 1px solid #14a44d;
             color: #fff;
-            padding: 10px 30px;
+            padding: 12px 35px;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: 2px;
             cursor: pointer;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             transition: 0.3s;
         }
         .play-btn:hover { background: #14a44d; color: #000; }
 
         .project-desc {
             font-size: 14px;
-            opacity: 0.6;
+            opacity: 0.5;
             max-width: 600px;
-            margin: 0 auto 60px;
+            margin: 0 auto 80px;
             line-height: 1.6;
+            letter-spacing: 0.5px;
         }
 
         /* КАРУСЕЛЬ (СНИЗУ) */
-        .carousel-section-title {
+        .carousel-label {
             text-align: left;
             padding-left: 5%;
-            font-size: 11px;
+            font-size: 10px;
             text-transform: lowercase;
-            letter-spacing: 2px;
-            opacity: 0.4;
-            margin-bottom: 20px;
+            letter-spacing: 3px;
+            opacity: 0.3;
+            margin-bottom: 15px;
         }
 
         .carousel-wrapper {
@@ -78,16 +83,14 @@
             overflow-x: auto;
             cursor: grab;
             margin-bottom: 100px;
-            -webkit-overflow-scrolling: touch;
         }
         .carousel-wrapper::-webkit-scrollbar { display: none; }
-
-        .carousel-track { display: flex; width: max-content; padding-left: 5%; gap: 10px; }
-        .carousel-item { height: 250px; flex-shrink: 0; border: 0.5px solid rgba(255,255,255,0.2); }
+        .carousel-track { display: flex; width: max-content; padding-left: 5%; gap: 15px; }
+        .carousel-item { height: 280px; flex-shrink: 0; border: 1px solid #111; }
         .carousel-item img { height: 100%; width: auto; display: block; pointer-events: none; }
 
-        /* РАЗДЕЛИТЕЛЬНАЯ ЛИНИЯ */
-        .divider { width: 100%; height: 1px; background: #222; margin: 40px 0; }
+        /* Линия разделения */
+        .divider { width: 100%; height: 1px; background: #111; margin-bottom: 40px; }
 
     </style>
 </head>
@@ -99,25 +102,32 @@
     </header>
 
     <main>
-        <section class="video-section">
-            <div class="video-container">
-                <iframe id="heroVideo" 
-                    src="https://kinescope.io/embed/cNrDJ7nEv1zcvcenw69cKk?autoplay=1&loop=1&muted=1&background=1" 
-                    allow="autoplay; fullscreen" frameborder="0">
-                </iframe>
+        <section class="viewer-section">
+            <div class="model-container">
+                <model-viewer 
+                    src="https://docs.google.com/uc?export=download&id=104QBX75pKVGmYSPnnUaajx7WOBZ9saUG" 
+                    alt="Jumanji 3D Model" 
+                    auto-rotate 
+                    camera-controls 
+                    shadow-intensity="1" 
+                    environment-image="neutral"
+                    exposure="1.2">
+                </model-viewer>
             </div>
 
-            <button class="play-btn" onclick="toggleSound()">плей видео</button>
+            <button class="play-btn">взаимодействовать</button>
+            
             <div class="project-desc">
-                Вертикальный иммерсивный опыт. Тщательная проработка декораций и атмосферы диких джунглей, перенесенная в цифровой и физический формат.
+                Интерактивный 3D-макет проекта. Исследуйте детали конструкции, вращая объект в любую сторону. 
+                Тщательная проработка атмосферы джунглей в цифровом формате.
             </div>
         </section>
 
         <div class="divider"></div>
-
-        <div class="carousel-section-title">caroosls section::</div>
         
-        <div class="carousel-wrapper" id="carouselWrapper">
+        <div class="carousel-label">caroosls section::</div>
+        
+        <div class="carousel-wrapper" id="scrollWrap">
             <div class="carousel-track">
                 <div class="carousel-item"><img src="assets/render.jumanji/renju1.jpg"></div>
                 <div class="carousel-item"><img src="assets/render.jumanji/renju2.jpg"></div>
@@ -129,17 +139,8 @@
     </main>
 
     <script>
-        // Функция включения звука
-        function toggleSound() {
-            const iframe = document.getElementById('heroVideo');
-            let src = iframe.src;
-            if (src.includes('muted=1')) {
-                iframe.src = src.replace('muted=1', 'muted=0').replace('background=1', 'background=0');
-            }
-        }
-
-        // Логика перетаскивания карусели мышкой
-        const slider = document.getElementById('carouselWrapper');
+        // Прокрутка карусели мышкой
+        const slider = document.getElementById('scrollWrap');
         let isDown = false; let startX; let scrollLeft;
 
         slider.addEventListener('mousedown', (e) => {
