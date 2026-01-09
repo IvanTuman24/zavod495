@@ -3,81 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JUMANJI | 3D SHOWCASE</title>
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+    <title>JUMANJI | ZAVOD495</title>
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; text-align: center; overflow-x: hidden; }
+        body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; overflow-x: hidden; }
         
-        /* ЛОГО И ЗАГОЛОВОК ПО ЦЕНТРУ */
-        header { padding: 50px 20px 20px; }
-        .logo-top { width: 60px; margin-bottom: 15px; opacity: 0.9; }
-        h1 { 
-            font-size: clamp(40px, 10vw, 100px); 
-            text-transform: uppercase; 
-            letter-spacing: 15px; 
-            margin: 0; 
-            font-weight: bold; 
+        /* ЛОГОТИП В УГЛУ */
+        header { 
+            position: absolute; 
+            top: 20px; 
+            left: 20px; 
+            z-index: 100; 
         }
+        .logo { width: 70px; display: block; filter: brightness(2); }
 
-        /* КОНТЕЙНЕР 3D МОДЕЛИ (ЗЕЛЕНАЯ РАМКА) */
-        .viewer-section {
+        /* ГЛАВНЫЙ ЭКРАН */
+        .hero-section {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px 5%;
-        }
-
-        .model-container {
+            height: 100vh;
             width: 100%;
-            max-width: 1200px;
-            height: 65vh;
-            border: 1px solid #14a44d; /* Твоя зеленая рамка */
-            background: radial-gradient(circle, #0a0a0a 0%, #000 100%);
-            margin-bottom: 25px;
-            position: relative;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5%;
+            box-sizing: border-box;
         }
 
-        model-viewer {
+        /* КОНТЕЙНЕР ДЛЯ ВЕРТИКАЛЬНОГО ВИДЕО */
+        .video-box {
+            flex: 1;
+            height: 80vh; /* Высота как на макете */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-wrapper {
+            height: 100%;
+            aspect-ratio: 9 / 16; /* Строго вертикальный формат */
+            background: #000;
+        }
+
+        .video-wrapper iframe {
             width: 100%;
             height: 100%;
-            --poster-color: transparent;
+            border: none;
         }
 
-        /* КНОПКА И ОПИСАНИЕ */
-        .play-btn {
-            background: none;
-            border: 1px solid #14a44d;
-            color: #fff;
-            padding: 12px 35px;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 2px;
+        /* ТЕКСТОВЫЙ БЛОК СПРАВА */
+        .content-box {
+            flex: 1;
+            padding-left: 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        h1 { 
+            text-transform: uppercase; 
+            font-size: 80px; /* Большой заголовок как на референсе */
+            letter-spacing: 15px; 
+            margin: 0 0 15px 0; 
+            font-weight: bold;
+        }
+
+        .description { 
+            font-size: 13px; 
+            line-height: 1.6; 
+            opacity: 0.5; 
+            max-width: 350px;
+            margin-bottom: 40px;
+        }
+
+        /* КНОПКА ВКЛЮЧИТЬ ЗВУК */
+        .sound-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #fff; /* Белая кнопка как на макете */
+            color: #000;
+            border: none;
+            padding: 12px 25px;
             cursor: pointer;
-            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 2px;
+            font-weight: bold;
             transition: 0.3s;
         }
-        .play-btn:hover { background: #14a44d; color: #000; }
 
-        .project-desc {
-            font-size: 14px;
-            opacity: 0.5;
-            max-width: 600px;
-            margin: 0 auto 80px;
-            line-height: 1.6;
-            letter-spacing: 0.5px;
-        }
+        .sound-btn:hover { background: #ccc; }
+        .sound-btn svg { width: 14px; fill: currentColor; }
 
-        /* КАРУСЕЛЬ (СНИЗУ) */
-        .carousel-label {
-            text-align: left;
-            padding-left: 5%;
-            font-size: 10px;
-            text-transform: lowercase;
-            letter-spacing: 3px;
-            opacity: 0.3;
-            margin-bottom: 15px;
-        }
-
+        /* КАРУСЕЛЬ (НИЖЕ) */
         .carousel-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -85,48 +102,51 @@
             margin-bottom: 100px;
         }
         .carousel-wrapper::-webkit-scrollbar { display: none; }
-        .carousel-track { display: flex; width: max-content; padding-left: 5%; gap: 15px; }
-        .carousel-item { height: 280px; flex-shrink: 0; border: 1px solid #111; }
+        .carousel-track { display: flex; width: max-content; }
+        .carousel-item { height: 70vh; flex-shrink: 0; }
         .carousel-item img { height: 100%; width: auto; display: block; pointer-events: none; }
 
-        /* Линия разделения */
-        .divider { width: 100%; height: 1px; background: #111; margin-bottom: 40px; }
-
+        @media (max-width: 1024px) {
+            .hero-section { flex-direction: column; height: auto; padding-top: 80px; }
+            .content-box { padding: 40px 20px; align-items: center; text-align: center; }
+            h1 { font-size: 40px; }
+            .video-box { height: 60vh; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <img src="assets/logo.shapka.png" class="logo-top" alt="ZAVOD">
-        <h1>JUMANJI</h1>
+        <a href="index.html">
+            <img src="assets/logo.shapka.png" alt="ZAVOD" class="logo">
+        </a>
     </header>
 
     <main>
-        <section class="viewer-section">
-            <div class="model-container">
-                <model-viewer 
-                    src="https://docs.google.com/uc?export=download&id=104QBX75pKVGmYSPnnUaajx7WOBZ9saUG" 
-                    alt="Jumanji 3D Model" 
-                    auto-rotate 
-                    camera-controls 
-                    shadow-intensity="1" 
-                    environment-image="neutral"
-                    exposure="1.2">
-                </model-viewer>
+        <section class="hero-section">
+            <div class="video-box">
+                <div class="video-wrapper">
+                    <iframe id="kinescopePlayer" 
+                        src="https://kinescope.io/embed/cNrDJ7nEv1zcvcenw69cKk?autoplay=1&loop=1&muted=1&background=1&dnt=1" 
+                        allow="autoplay; fullscreen; picture-in-picture" 
+                        frameborder="0">
+                    </iframe>
+                </div>
             </div>
 
-            <button class="play-btn">взаимодействовать</button>
-            
-            <div class="project-desc">
-                Интерактивный 3D-макет проекта. Исследуйте детали конструкции, вращая объект в любую сторону. 
-                Тщательная проработка атмосферы джунглей в цифровом формате.
+            <div class="content-box">
+                <h1>JUMANJI</h1>
+                <div class="description">
+                    Вертикальный иммерсивный опыт. Тщательная проработка декораций и атмосферы диких джунглей, перенесенная в цифровой и физический формат.
+                </div>
+                
+                <button class="sound-btn" onclick="unmuteVideo()">
+                    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                    ВКЛЮЧИТЬ ЗВУК
+                </button>
             </div>
         </section>
 
-        <div class="divider"></div>
-        
-        <div class="carousel-label">caroosls section::</div>
-        
         <div class="carousel-wrapper" id="scrollWrap">
             <div class="carousel-track">
                 <div class="carousel-item"><img src="assets/render.jumanji/renju1.jpg"></div>
@@ -139,23 +159,26 @@
     </main>
 
     <script>
-        // Прокрутка карусели мышкой
-        const slider = document.getElementById('scrollWrap');
-        let isDown = false; let startX; let scrollLeft;
+        function unmuteVideo() {
+            const player = document.getElementById('kinescopePlayer');
+            let currentSrc = player.src;
+            if (currentSrc.includes('muted=1')) {
+                // Перезапуск видео без mute и режима background для активации звука
+                player.src = currentSrc.replace('muted=1', 'muted=0').replace('background=1', 'background=0');
+            }
+        }
 
-        slider.addEventListener('mousedown', (e) => {
-            isDown = true;
-            startX = e.pageX - slider.offsetLeft;
-            scrollLeft = slider.scrollLeft;
-        });
-        slider.addEventListener('mouseleave', () => isDown = false);
-        slider.addEventListener('mouseup', () => isDown = false);
-        slider.addEventListener('mousemove', (e) => {
-            if (!isDown) return;
+        const sw = document.getElementById('scrollWrap');
+        let isDown = false; let startX; let scrollLeft;
+        sw.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - sw.offsetLeft; scrollLeft = sw.scrollLeft; });
+        sw.addEventListener('mouseleave', () => isDown = false);
+        sw.addEventListener('mouseup', () => isDown = false);
+        sw.addEventListener('mousemove', (e) => {
+            if(!isDown) return;
             e.preventDefault();
-            const x = e.pageX - slider.offsetLeft;
+            const x = e.pageX - sw.offsetLeft;
             const walk = (x - startX) * 2;
-            slider.scrollLeft = scrollLeft - walk;
+            sw.scrollLeft = scrollLeft - walk;
         });
     </script>
 </body>
