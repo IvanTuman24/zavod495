@@ -6,20 +6,20 @@
     <title>JUMANJI СЕРДЦЕ ИМПЕРИИ</title>
     <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
     <style>
-        body { margin: 0; background: #000; color: #fff; font-family: 'Helvetica', Arial, sans-serif; text-align: center; overflow-x: hidden; }
-        header { padding: 60px 20px 30px; }
-        h1 { font-size: clamp(24px, 5vw, 50px); text-transform: uppercase; letter-spacing: 8px; margin: 0; font-weight: bold; }
+        body { margin: 0; background: #000; color: #fff; font-family: Arial, sans-serif; text-align: center; overflow-x: hidden; }
+        header { padding: 40px 20px; }
+        h1 { font-size: clamp(24px, 5vw, 40px); text-transform: uppercase; letter-spacing: 5px; margin: 0; }
 
-        main { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        main { max-width: 1200px; margin: 0 auto; padding: 0 10px; }
 
         /* 3D МОДЕЛЬ */
-        .section-3d { margin-bottom: 40px; }
-        .model-box { width: 100%; height: 500px; background: #080808; border: 1px solid #1a1a1a; }
+        .section-3d { margin-bottom: 30px; }
+        .model-box { width: 100%; height: 500px; background: #050505; border: 1px solid #1a1a1a; }
         model-viewer { width: 100%; height: 100%; }
 
-        .caption { font-size: 11px; opacity: 0.4; margin: 15px 0 60px; text-transform: lowercase; letter-spacing: 2px; }
+        .caption { font-size: 10px; opacity: 0.4; margin: 10px 0 50px; text-transform: lowercase; letter-spacing: 2px; }
 
-        /* КАРУСЕЛИ (на весь экран по ширине) */
+        /* КАРУСЕЛИ */
         .carousel-container { 
             width: 100vw; 
             position: relative; 
@@ -28,16 +28,16 @@
             margin-left: -50vw; 
             margin-right: -50vw; 
             overflow-x: auto; 
-            cursor: grab; 
-            margin-bottom: 10px; 
+            margin-bottom: 5px; 
+            cursor: grab;
         }
         .carousel-container::-webkit-scrollbar { display: none; }
-        .carousel-track { display: inline-flex; gap: 15px; padding: 0 5vw; }
-        .carousel-track img { height: 350px; width: auto; object-fit: contain; }
+        .carousel-track { display: inline-flex; gap: 10px; padding: 0 20px; }
+        .carousel-track img { height: 300px; width: auto; display: block; }
 
-        /* ФИНАЛЬНЫЙ БЛОК */
-        .final-hero { width: 100%; margin: 40px 0; }
-        .final-hero img { width: 100%; height: auto; }
+        /* ФИНАЛЬНОЕ ФОТО */
+        .final-img { width: 100%; margin-top: 20px; }
+        .final-img img { width: 100%; height: auto; display: block; }
     </style>
 </head>
 <body>
@@ -69,34 +69,34 @@
 
         <div class="carousel-container" id="kar2">
             <div class="carousel-track">
-                <img src="assets/jumanji/karusel2/IMG_4191.JPG">
-                <img src="assets/jumanji/karusel2/IMG_4193.JPG">
+                <img src="assets/jumanji/juman.karusel2/IMG_4191.JPG">
+                <img src="assets/jumanji/juman.karusel2/IMG_4193.JPG">
             </div>
         </div>
         <div class="caption">процесс создания и детализации</div>
 
         <div class="carousel-container" id="kar3">
             <div class="carousel-track">
-                <img src="assets/jumanji/karusel3/IMG_4174.JPG">
-                <img src="assets/jumanji/karusel3/IMG_4181.JPG">
-                <img src="assets/jumanji/karusel3/IMG_4184.JPG">
-                <img src="assets/jumanji/karusel3/IMG_4220.JPG">
-                <img src="assets/jumanji/karusel3/IMG_4271.JPG">
-                <img src="assets/jumanji/karusel3/IMG_4308.JPG">
-                <img src="assets/jumanji/karusel3/IMG_4420.JPG">
+                <img src="assets/jumanji/juman.karusel3/IMG_4174.JPG">
+                <img src="assets/jumanji/juman.karusel3/IMG_4181.JPG">
+                <img src="assets/jumanji/juman.karusel3/IMG_4184.JPG">
+                <img src="assets/jumanji/juman.karusel3/IMG_4220.JPG">
+                <img src="assets/jumanji/juman.karusel3/IMG_4271.JPG">
+                <img src="assets/jumanji/juman.karusel3/IMG_4308.JPG">
+                <img src="assets/jumanji/juman.karusel3/IMG_4420.JPG">
             </div>
         </div>
-        <div class="caption">работа в мастерской и финальная сборка</div>
+        <div class="caption">работа в мастерской и покраска</div>
 
-        <div class="final-hero">
+        <div class="final-img">
             <img src="assets/render.jumanji/renju5.jpg">
         </div>
         <div class="caption">готовое изделие</div>
     </main>
 
     <script>
-        // Инициализация горизонтального скролла мышкой для всех каруселей
-        function initScroll(id) {
+        // Скрипт для прокрутки каруселей мышкой
+        function enableScroll(id) {
             const el = document.getElementById(id);
             let isDown = false; let startX; let scrollLeft;
             el.addEventListener('mousedown', (e) => { isDown = true; startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft; });
@@ -104,9 +104,9 @@
             el.addEventListener('mouseup', () => isDown = false);
             el.addEventListener('mousemove', (e) => { if(!isDown) return; e.preventDefault(); const x = e.pageX - el.offsetLeft; const walk = (x - startX) * 2; el.scrollLeft = scrollLeft - walk; });
         }
-        initScroll('kar-render');
-        initScroll('kar2');
-        initScroll('kar3');
+        enableScroll('kar-render');
+        enableScroll('kar2');
+        enableScroll('kar3');
     </script>
 </body>
 </html>
